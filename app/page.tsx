@@ -3,7 +3,7 @@ import Tours from "@/components/tours/Tours";
 
 export default function Page() {
   return (
-    <main>
+    <main className="flex justify-center items-center flex-wrap">
       <Home />
       <Tours />
     </main>

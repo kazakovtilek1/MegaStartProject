@@ -10,8 +10,6 @@
 
 body {
   font-family: var(--font-montserrat), sans-serif;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0 auto;
+  margin: 0 auto; 
+  padding: 0;
 }
