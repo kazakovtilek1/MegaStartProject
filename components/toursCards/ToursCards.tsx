@@ -1,6 +1,6 @@
 "use client";
 
-import { tours, Tour } from "@/constants/tours";
+import { tours, Tour } from "@/constants/Tours";
 import Image from "next/image";
 import { LiaStarSolid } from "react-icons/lia";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
@@ -43,7 +43,7 @@ export default function ToursCards() {
         <div className="flex justify-center w-114 my-11 rounded-[20px] border border-[#3DD0C9] border-solid shadow-inner">
           <button
             onClick={() => handleClick("best")}
-            className={`w-57 h-20 rounded-l-[20px] text-base font-semibold flex justify-center items-center cursor-pointer transform transition-transform hover:scale-103 ${
+            className={`w-57 h-20 rounded-l-[20px] text-base font-semibold flex justify-center items-center cursor-pointer transition duration-300 hover:shadow-lg ${
               selected === "best"
                 ? "bg-[#40D885]/75 text-white"
                 : "bg-transparent text-black "
@@ -53,7 +53,7 @@ export default function ToursCards() {
           </button>
           <button
             onClick={() => handleClick("oneDay")}
-            className={`w-57 h-20 rounded-r-[20px] text-base font-semibold flex justify-center items-center cursor-pointer duration-200 transform transition-transform hover:scale-103 ${
+            className={`w-57 h-20 rounded-r-[20px] text-base font-semibold flex justify-center items-center cursor-pointer transition duration-300 hover:shadow-lg   ${
               selected === "oneDay"
                 ? "bg-[#40D885]/75 text-white"
                 : "bg-transparent text-[black]"
