@@ -1,5 +1,4 @@
 import Home from "@/components/home/Home";
-import Tours from "@/components/tours/Tours";
 import ToursCards from "@/components/toursCards/ToursCards";
 
 export default function Page() {
@@ -7,9 +6,8 @@ export default function Page() {
     <main>
       <div className="flex justify-center items-center flex-wrap">
         <Home />
-        <Tours />
+        <ToursCards />
       </div>
-      <ToursCards />
     </main>
   );
 }
