@@ -1,6 +1,7 @@
 import Home from "@/components/home/Home";
 import ToursCards from "@/components/toursCards/ToursCards";
 import Guides from "@/components/guides/Guides";
+import Reviews from "@/components/reviews/Reviews";
 
 export default function Page() {
   return (
@@ -9,6 +10,7 @@ export default function Page() {
         <Home />
         <ToursCards />
         <Guides />
+        <Reviews />
       </div>
     </main>
   );

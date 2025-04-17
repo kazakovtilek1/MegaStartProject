@@ -1,3 +1,4 @@
+// функция для правильного склонения слова: "дней" в карточках туров
 export function getDayLabel(days: number): string {
   const mod10 = days % 10;
   const mod100 = days % 100;
@@ -5,4 +6,14 @@ export function getDayLabel(days: number): string {
   if (mod10 === 1 && mod100 !== 11) return "день";
   if (mod10 >= 2 && mod10 <= 4 && (mod100 < 10 || mod100 >= 20)) return "дня";
   return "дней";
+}
+
+// функция для правильного склонения слова: "год" в карточках гидов
+export function getYearLabel(years: number): string {
+  const mod10 = years % 10;
+  const mod100 = years % 100;
+
+  if (mod10 === 1 && mod100 !== 11) return "год";
+  if (mod10 >= 2 && mod10 <= 4 && (mod100 < 10 || mod100 >= 20)) return "года";
+  return "лет";
 }

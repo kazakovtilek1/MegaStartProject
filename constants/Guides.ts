@@ -2,7 +2,7 @@ export interface Guide {
   id: number;
   image: string;
   name: string;
-  raiting: number;
+  rating: number;
   reviews: number;
   experience: number;
   description: string;
