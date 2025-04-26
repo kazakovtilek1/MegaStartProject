@@ -1,7 +1,9 @@
 import Home from "@/components/home/Home";
 import ToursCards from "@/components/toursCards/ToursCards";
 import Guides from "@/components/guides/Guides";
+import LeaveReviews from "@/components/leaveReviews/LeaveReviews";
 import Reviews from "@/components/reviews/Reviews";
+import ContactForm from "@/components/contactForm/ContactForm";
 
 export default function Page() {
   return (
@@ -10,7 +12,9 @@ export default function Page() {
         <Home />
         <ToursCards />
         <Guides />
+        <LeaveReviews />
         <Reviews />
+        <ContactForm />
       </div>
     </main>
   );

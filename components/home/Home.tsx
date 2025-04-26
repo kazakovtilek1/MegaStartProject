@@ -1,5 +1,5 @@
 import Navbar from "./navbar/Navbar";
-import { HOME_BACKGROUND } from "@/constants/images";
+import { HOME_BACKGROUND } from "@/constants/Images";
 
 export default function Home() {
   return (

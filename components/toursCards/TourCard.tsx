@@ -3,6 +3,7 @@ import { LiaStarSolid } from "react-icons/lia";
 import Image from "next/image";
 import { getDayLabel } from "../../utilities/pluralize";
 import { Tour } from "@/constants/Tours";
+import React from "react";
 
 type TourCardProps = {
   tour: Tour;
@@ -10,7 +11,7 @@ type TourCardProps = {
   toggleFavorite: (id: number) => void;
 };
 
-export default function TourCard({
+export default React.memo(function TourCard({
   tour,
   isFavorite,
   toggleFavorite,
@@ -53,4 +54,4 @@ export default function TourCard({
       <p className="font-medium text-base">Осталось мест: {tour.placesLeft}</p>
     </div>
   );
-}
+});

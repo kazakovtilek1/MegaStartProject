@@ -13,7 +13,7 @@ export const guides: Guide[] = [
     id: 1,
     image: "/images/Guide1.png",
     name: "Иван",
-    raiting: 5,
+    rating: 5,
     reviews: 32,
     experience: 3,
     description:
@@ -23,7 +23,7 @@ export const guides: Guide[] = [
     id: 2,
     image: "/images/Guide2.png",
     name: "Екатерина",
-    raiting: 4.8,
+    rating: 4.8,
     reviews: 29,
     experience: 2,
     description:
@@ -33,7 +33,7 @@ export const guides: Guide[] = [
     id: 3,
     image: "/images/Guide3.png",
     name: "Егор",
-    raiting: 4.9,
+    rating: 4.9,
     reviews: 24,
     experience: 2,
     description:
