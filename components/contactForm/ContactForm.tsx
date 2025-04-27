@@ -1,3 +1,5 @@
+"use client";
+
 import { useForm } from "react-hook-form";
 
 type FormValues = {
@@ -38,69 +40,76 @@ export default function ContactForm() {
           Оставьте свои контакты
         </p>
       </div>
-      <div className="w-158 h-90 border border-dashed border-[#9747FF] rounded-[5px]">
-        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
-          {/* Имя */}
-          <div className="flex flex-col">
-            <input
-              type="text"
-              placeholder="Фамилия и имя"
-              {...register("name", { required: "Введите ваше имя" })}
-              className="p-3 rounded-lg border border-gray-300 focus:border-blue-500 outline-none"
-            />
-            {errors.name && (
-              <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>
-            )}
-          </div>
-
-          {/* Телефон */}
-          <div className="flex flex-col">
-            <input
-              type="tel"
-              placeholder="Телефон"
-              {...register("phone", { required: "Введите номер телефона" })}
-              className="p-3 rounded-lg border border-gray-300 focus:border-blue-500 outline-none"
-            />
-            {errors.phone && (
-              <p className="text-red-500 text-sm mt-1">
-                {errors.phone.message}
-              </p>
-            )}
-          </div>
-
-          {/* Email */}
-          <div className="flex flex-col">
-            <input
-              type="email"
-              placeholder="Email"
-              {...register("email", { required: "Введите email" })}
-              className="p-3 rounded-lg border border-gray-300 focus:border-blue-500 outline-none"
-            />
-            {errors.email && (
-              <p className="text-red-500 text-sm mt-1">
-                {errors.email.message}
-              </p>
-            )}
-          </div>
-
-          {/* Комментарий */}
-          <div className="flex flex-col">
-            <textarea
-              placeholder="Комментарий"
-              {...register("comment")}
-              className="p-3 rounded-lg border border-gray-300 focus:border-blue-500 outline-none resize-none h-28"
-            />
-          </div>
-
-          {/* Кнопка */}
-          <button
-            type="submit"
-            disabled={isSubmitting}
-            className="bg-[#9747FF] text-white font-bold py-2 rounded-lg hover:bg-[#7c3aed] transition-colors disabled:opacity-50"
+      <div className="flex ">
+        <div className="w-158 h-90 border border-dashed border-[#9747FF] rounded-[5px] p-5">
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="flex flex-col gap-6 justify-between"
           >
-            {isSubmitting ? "Отправка..." : "Отправить"}
-          </button>
-        </form>
+            {/* Имя */}
+            <div className="flex flex-col">
+              <input
+                type="text"
+                placeholder="Фамилия и имя *"
+                {...register("name", { required: "Введите ваше имя" })}
+                className="p-3 rounded-[15px] bg-white outline-none w-148 h-15"
+              />
+              {errors.name && (
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.name.message}
+                </p>
+              )}
+            </div>
+
+            {/* Телефон */}
+            <div className="flex flex-col">
+              <input
+                type="tel"
+                placeholder="Телефон *"
+                {...register("phone", { required: "Введите номер телефона" })}
+                className="p-3 rounded-[15px] bg-white outline-none w-148 h-15"
+              />
+              {errors.phone && (
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.phone.message}
+                </p>
+              )}
+            </div>
+
+            {/* Email */}
+            <div className="flex flex-col">
+              <input
+                type="email"
+                placeholder="Email *"
+                {...register("email", { required: "Введите email" })}
+                className="p-3 rounded-[15px] bg-white outline-none w-148 h-15"
+              />
+              {errors.email && (
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.email.message}
+                </p>
+              )}
+            </div>
+
+            {/* Комментарий */}
+            <div className="flex flex-col">
+              <textarea
+                placeholder="Комментарий"
+                {...register("comment")}
+                className="p-3 rounded-[15px] bg-[#DBDADA] outline-none w-148 h-15"
+              />
+            </div>
+
+            {/* Кнопка */}
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="w-148 h-15 bg-[#E48C3F] rounded-[15px] text-white mt-6 cursor-pointer"
+            >
+              {isSubmitting ? "Отправка..." : "Отправить Заявку"}
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   );
