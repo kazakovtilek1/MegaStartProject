@@ -4,6 +4,12 @@ import { tours, Tour } from "@/constants/Tours";
 import { useState, useEffect, useCallback, useMemo } from "react";
 import TourCard from "./TourCard";
 import { IoIosArrowForward } from "react-icons/io";
+import {
+  allToursButtonClass,
+  bestToursButtonClass,
+  buttonBoxClass,
+  oneDayToursButtonClass,
+} from "@/app/styles/ToursCardsStyles";
 
 type FilterType = "best" | "oneDay";
 
@@ -53,10 +59,10 @@ export default function ToursCards() {
   return (
     <div className="relative w-241">
       <div className="flex justify-center">
-        <div className="flex justify-center w-114 my-11 rounded-[20px] border border-[#3DD0C9] border-solid shadow-inner">
+        <div className={buttonBoxClass}>
           <button
             onClick={() => handleClick("best")}
-            className={`w-57 h-20 rounded-l-[20px] text-base font-semibold flex justify-center items-center cursor-pointer transition duration-300 hover:shadow-lg ${
+            className={`${bestToursButtonClass} ${
               selected === "best"
                 ? "bg-[#40D885]/75 text-white"
                 : "bg-transparent text-black"
@@ -66,7 +72,7 @@ export default function ToursCards() {
           </button>
           <button
             onClick={() => handleClick("oneDay")}
-            className={`w-57 h-20 rounded-r-[20px] text-base font-semibold flex justify-center items-center cursor-pointer transition duration-300 hover:shadow-lg ${
+            className={`${oneDayToursButtonClass} ${
               selected === "oneDay"
                 ? "bg-[#40D885]/75 text-white"
                 : "bg-transparent text-black"
@@ -80,7 +86,7 @@ export default function ToursCards() {
       <div className="flex justify-center gap-5 flex-wrap">{tourCards}</div>
 
       <div className="flex justify-center">
-        <button className="flex justify-center items-center gap-2.5 w-114 h-12 bg-[#E48C3F] text-white text-base font-medium rounded-[15px] cursor-pointer hover:bg-[#E48C3F]/90 transform transition-transform hover:scale-105 duration-300">
+        <button className={allToursButtonClass}>
           Смотреть все туры <IoIosArrowForward />
         </button>
       </div>

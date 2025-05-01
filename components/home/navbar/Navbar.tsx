@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Search from "./Search";
 import Switcher from "./Switcher";
+import { navLinksHeader } from "@/constants/navLinksHeader";
 
 export default function Navbar() {
   return (
@@ -17,10 +18,11 @@ export default function Navbar() {
       </div>
       <div>
         <nav className="flex gap-11 text-base font-semibold">
-          <Link href="/">Главная</Link>
-          <Link href="/tours">Туры</Link>
-          <Link href="/contacts">Контакты</Link>
-          <Link href="/login">Вход</Link>
+          {navLinksHeader.map(({ href, label }) => (
+            <Link key={href} href={href}>
+              {label}
+            </Link>
+          ))}
         </nav>
       </div>
       <Search />

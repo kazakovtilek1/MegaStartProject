@@ -1,5 +1,7 @@
 "use client";
 
+import { inputClass, inputCommentClass } from "@/app/styles/ContactFormStyles";
+import ErrorBoundary from "@/components/ErrorBoundary";
 import { useForm } from "react-hook-form";
 
 type FormValues = {
@@ -25,23 +27,23 @@ export default function ContactForm() {
   };
 
   return (
-    <div className="flex justify-center items-center gap-28 w-350 h-125 bg-[#27B567] mt-25">
-      <div className="text-center">
-        <h3
-          className="font-semibold text-[32px] text-white mb-4"
-          style={{ fontFamily: "var(--font-inter)" }}
-        >
-          Необходимо связаться с Вами?
-        </h3>
-        <p
-          className="font-semibold text-xl text-white"
-          style={{ fontFamily: "var(--font-inter)" }}
-        >
-          Оставьте свои контакты
-        </p>
-      </div>
-      <div className="flex ">
-        <div className="w-158 h-90 border border-dashed border-[#9747FF] rounded-[5px] p-5">
+    <ErrorBoundary fallback={<div>Ошибка отправки формы</div>}>
+      <div className="flex justify-center gap-28 w-350 h-125 bg-[#27B567] mt-25">
+        <div className="text-center mt-51">
+          <h3
+            className="font-semibold text-[32px] text-white mb-4"
+            style={{ fontFamily: "var(--font-inter)" }}
+          >
+            Необходимо связаться с Вами?
+          </h3>
+          <p
+            className="font-semibold text-xl text-white"
+            style={{ fontFamily: "var(--font-inter)" }}
+          >
+            Оставьте свои контакты
+          </p>
+        </div>
+        <div className="w-158 h-90 border border-dashed border-[#9747FF] rounded-[5px] p-5 mt-7">
           <form
             onSubmit={handleSubmit(onSubmit)}
             className="flex flex-col gap-6 justify-between"
@@ -50,45 +52,38 @@ export default function ContactForm() {
             <div className="flex flex-col">
               <input
                 type="text"
-                placeholder="Фамилия и имя *"
+                placeholder={
+                  errors.name ? errors.name.message : "Фамилия и имя *"
+                }
                 {...register("name", { required: "Введите ваше имя" })}
-                className="p-3 rounded-[15px] bg-white outline-none w-148 h-15"
+                className={`${inputClass} ${
+                  errors.name ? "placeholder-red-400" : ""
+                }`}
               />
-              {errors.name && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.name.message}
-                </p>
-              )}
             </div>
 
             {/* Телефон */}
             <div className="flex flex-col">
               <input
                 type="tel"
-                placeholder="Телефон *"
+                placeholder={errors.phone ? errors.phone.message : "Телефон *"}
                 {...register("phone", { required: "Введите номер телефона" })}
-                className="p-3 rounded-[15px] bg-white outline-none w-148 h-15"
+                className={`${inputClass} ${
+                  errors.phone ? "placeholder-red-400" : ""
+                }`}
               />
-              {errors.phone && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.phone.message}
-                </p>
-              )}
             </div>
 
             {/* Email */}
             <div className="flex flex-col">
               <input
                 type="email"
-                placeholder="Email *"
+                placeholder={errors.email ? errors.email.message : "Email *"}
                 {...register("email", { required: "Введите email" })}
-                className="p-3 rounded-[15px] bg-white outline-none w-148 h-15"
+                className={`${inputClass} ${
+                  errors.email ? "placeholder-red-400" : ""
+                }`}
               />
-              {errors.email && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.email.message}
-                </p>
-              )}
             </div>
 
             {/* Комментарий */}
@@ -96,7 +91,7 @@ export default function ContactForm() {
               <textarea
                 placeholder="Комментарий"
                 {...register("comment")}
-                className="p-3 rounded-[15px] bg-[#DBDADA] outline-none w-148 h-15"
+                className={inputCommentClass}
               />
             </div>
 
@@ -104,13 +99,14 @@ export default function ContactForm() {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-148 h-15 bg-[#E48C3F] rounded-[15px] text-white mt-6 cursor-pointer"
+              style={{ fontFamily: "var(--font-inter)" }}
+              className="w-148 h-15 font-medium text-xl bg-[#E48C3F] border-none rounded-[15px] text-white mt-6 cursor-pointer hover:bg-white border hover:border-[#E48C3F] hover:text-black transform transition-all duration-250 ease-in-out"
             >
               {isSubmitting ? "Отправка..." : "Отправить Заявку"}
             </button>
           </form>
         </div>
       </div>
-    </div>
+    </ErrorBoundary>
   );
 }
