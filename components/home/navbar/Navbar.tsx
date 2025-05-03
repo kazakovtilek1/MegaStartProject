@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Search from "./Search";
-import Switcher from "./Switcher";
+import LanguageSwitcher from "./LanguageSwitcher";
 import { navLinksHeader } from "@/constants/navLinksHeader";
 
 export default function Navbar() {
@@ -26,7 +26,7 @@ export default function Navbar() {
         </nav>
       </div>
       <Search />
-      <Switcher />
+      <LanguageSwitcher />
     </div>
   );
 }
