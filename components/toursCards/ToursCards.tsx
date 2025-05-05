@@ -1,6 +1,7 @@
 "use client";
 
-import { tours, Tour } from "@/constants/Tours";
+import { Tour } from "@/constants/Tours";
+import { useGetToursQuery } from "@/src/store/slices/ToursApi";
 import { useState, useEffect, useCallback, useMemo } from "react";
 import TourCard from "./TourCard";
 import { IoIosArrowForward } from "react-icons/io";
@@ -16,6 +17,8 @@ type FilterType = "best" | "oneDay";
 export default function ToursCards() {
   const [favorites, setFavorites] = useState<number[]>([]);
   const [selected, setSelected] = useState<FilterType>("best");
+
+  const { data: tours, isLoading, error } = useGetToursQuery();
 
   // Загрузка избранного
   useEffect(() => {
@@ -42,7 +45,15 @@ export default function ToursCards() {
 
   // Рендер карточек
   const tourCards = useMemo(() => {
-    return tours.map((tour: Tour) => {
+    if (!tours) return null;
+
+    let filteredTours = tours;
+
+    if (selected === "oneDay") {
+      filteredTours = tours.filter((tour) => tour.tourDuration === 1);
+    }
+
+    return filteredTours.map((tour: Tour) => {
       const isFavorite = favorites.includes(tour.id);
 
       return (
@@ -54,7 +65,17 @@ export default function ToursCards() {
         />
       );
     });
-  }, [favorites, toggleFavorite]);
+  }, [tours, favorites, toggleFavorite, selected]);
+
+  // Загрузка или ошибка
+  if (isLoading)
+    return <p className="text-center m-10 text-xl">Загрузка туров...</p>;
+  if (error)
+    return (
+      <p className="text-center text-red-500 m-10 text-3xl">
+        Ошибка при загрузке туров
+      </p>
+    );
 
   return (
     <div className="relative w-241">

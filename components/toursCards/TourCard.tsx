@@ -49,7 +49,7 @@ export default React.memo(function TourCard({
       </p>
       <p className="font-medium text-base">Цена: {tour.price} сом</p>
       <p className="font-medium text-base my-[5px]">
-        Даты выездов: {tour.departureDate.join(", ")}
+        Даты выездов: {tour.departureDate}
       </p>
       <p className="font-medium text-base">Осталось мест: {tour.placesLeft}</p>
     </div>

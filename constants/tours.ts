@@ -4,7 +4,7 @@ export interface Tour {
   tourDuration: number;
   rating: number;
   price: number;
-  departureDate: string[];
+  departureDate: string;
   placesLeft: number;
   image: string;
 }
@@ -16,7 +16,7 @@ export const tours: Tour[] = [
     tourDuration: 3,
     rating: 4.8,
     price: 5000,
-    departureDate: ["18.03, 20.03"],
+    departureDate: "18.03, 20.03",
     placesLeft: 6,
     image: "/images/zhetiOguz.png",
   },
@@ -26,7 +26,7 @@ export const tours: Tour[] = [
     tourDuration: 1,
     rating: 4.6,
     price: 1500,
-    departureDate: ["18.03, 20.03"],
+    departureDate: "18.03, 20.03",
     placesLeft: 3,
     image: "/images/araKol.png",
   },
@@ -36,7 +36,7 @@ export const tours: Tour[] = [
     tourDuration: 1,
     rating: 5.0,
     price: 2000,
-    departureDate: ["18.03, 20.03"],
+    departureDate: "18.03, 20.03",
     placesLeft: 5,
     image: "/images/canyonSkazka.png",
   },
@@ -46,7 +46,7 @@ export const tours: Tour[] = [
     tourDuration: 7,
     rating: 5.0,
     price: 2000,
-    departureDate: ["18.03, 20.03"],
+    departureDate: "18.03, 20.03",
     placesLeft: 5,
     image: "/images/canyonSkazka.png",
   },
@@ -56,7 +56,7 @@ export const tours: Tour[] = [
     tourDuration: 101,
     rating: 5.0,
     price: 2000,
-    departureDate: ["18.03, 20.03"],
+    departureDate: "18.03, 20.03",
     placesLeft: 5,
     image: "/images/canyonSkazka.png",
   },
@@ -66,7 +66,7 @@ export const tours: Tour[] = [
     tourDuration: 234,
     rating: 5.0,
     price: 2000,
-    departureDate: ["18.03, 20.03"],
+    departureDate: "18.03, 20.03",
     placesLeft: 5,
     image: "/images/canyonSkazka.png",
   },
