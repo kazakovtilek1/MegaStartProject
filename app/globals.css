@@ -13,3 +13,15 @@ body {
   margin: 0 auto; 
   padding: 0;
 }
+
+.react-datepicker__header {
+  background-color: transparent !important;
+}
+
+.react-datepicker__day--selected {
+  background-color: #2CA261 !important;
+}
+
+.react-datepicker__day-name {
+  color: #6E7781 !important;
+}
