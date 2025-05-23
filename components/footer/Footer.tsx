@@ -9,7 +9,7 @@ import { LuPhone } from "react-icons/lu";
 
 export default function Footer() {
   return (
-    <div className="flex justify-between items-center py-5 px-23 w-322 h-77 border border-solid rounded-[20px] mt-9 mb-4 shadow-[0_2px_8px_rgba(0,0,0,0.25)]">
+    <div className="container mx-auto flex justify-between items-center py-5 px-23 w-322 h-77 border border-solid rounded-[20px] mt-9 mb-4 shadow-[0_2px_8px_rgba(0,0,0,0.25)]">
       <div>
         <Image src={LOGO} alt="LOGO" width={117} height={59} />
       </div>

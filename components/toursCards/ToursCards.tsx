@@ -87,7 +87,7 @@ export default function ToursCards({ isFullPage = false }: ToursCardsProps) {
   //   );
 
   return (
-    <div className="relative w-241">
+    <div className="container mx-auto relative w-241">
       {!isFullPage && (
         <div className="flex justify-center">
           <div className={buttonBoxClass}>

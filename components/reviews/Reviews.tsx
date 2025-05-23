@@ -4,7 +4,7 @@ import React from "react";
 
 const Reviews = React.memo(function Reviews() {
   return (
-    <div className="flex justify-between flex-wrap w-323 gap-5">
+    <div className="container mx-auto flex justify-between gap-5">
       {reviews.map((review) => {
         const filledStars = Math.min(review.rating ?? 0, 5);
         const emptyStars = Math.max(5 - filledStars, 0);

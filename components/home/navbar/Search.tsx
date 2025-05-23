@@ -2,7 +2,7 @@ import { IoMdSearch } from "react-icons/io";
 
 export default function Search() {
   return (
-    <div className="flex items-center justify-end relative ml-60 mr-11">
+    <div className="flex items-center justify-end relative">
       <input
         type="text"
         // value={input}

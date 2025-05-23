@@ -12,7 +12,7 @@ const ContactForm = lazy(() => import("@/components/contactForm/ContactForm"));
 export default function Page() {
   return (
     <main>
-      <div className="flex justify-center items-center flex-wrap">
+      <div>
         <Home />
         <ToursCards />
         <Guides />

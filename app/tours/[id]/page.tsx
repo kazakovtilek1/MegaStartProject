@@ -5,6 +5,7 @@ import { tours } from "@/constants/Tours";
 import { LiaStarSolid } from "react-icons/lia";
 import "react-datepicker/dist/react-datepicker.css";
 import { useState } from "react";
+import { use } from "react";
 import DatePickerComponent from "@/components/DatePicker/DatePickerComponent";
 import LeaveReview from "@/components/leaveReview/LeaveReview";
 import Reviews from "@/components/reviews/Reviews";
@@ -12,11 +13,14 @@ import Footer from "@/components/footer/Footer";
 import TourInfo from "@/components/tourInfo/TourInfo";
 
 type Props = {
-  params: { id: string };
+  params: Promise<{
+    id: string;
+  }>;
 };
 
 export default function TourPage({ params }: Props) {
-  const tourId = Number(params.id);
+  const { id } = use(params);
+  const tourId = Number(id);
   const tour = tours.find((t) => t.id === tourId);
 
   const [startDate, setStartDate] = useState<Date | null>(null);
@@ -30,7 +34,7 @@ export default function TourPage({ params }: Props) {
       <div className="container mx-auto">
         <div className="flex justify-center">
           <div
-            className="flex justify-center bg-cover bg-center bg-no-repeat bg-fixed w-350 h-screen rounded-[20px] pt-[3px]"
+            className="flex justify-center bg-cover bg-center bg-no-repeat bg-fixed w-full h-screen rounded-[20px] p-[3px]"
             style={{ backgroundImage: `url(${tour.image})` }}
           >
             <Navbar />
