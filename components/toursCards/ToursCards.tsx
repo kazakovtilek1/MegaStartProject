@@ -1,8 +1,7 @@
 "use client";
 
 import { Tour } from "@/constants/Tours";
-// import { useGetToursQuery } from "@/src/store/slices/ToursApi";
-import { tours } from "@/constants/Tours";
+import { useGetToursQuery } from "@/src/store/slices/ToursApi";
 import { useState, useEffect, useCallback, useMemo } from "react";
 import TourCard from "./TourCard";
 import { IoIosArrowForward } from "react-icons/io";
@@ -25,7 +24,7 @@ export default function ToursCards({ isFullPage = false }: ToursCardsProps) {
   const [favorites, setFavorites] = useState<number[]>([]);
   const [selected, setSelected] = useState<FilterType>("best");
 
-  // const { data: tours, isLoading, error } = useGetToursQuery();
+  const { data: tours, isLoading, error } = useGetToursQuery();
 
   const router = useRouter();
 
@@ -77,14 +76,14 @@ export default function ToursCards({ isFullPage = false }: ToursCardsProps) {
   }, [tours, favorites, toggleFavorite, selected]);
 
   // Загрузка или ошибка
-  // if (isLoading)
-  //   return <p className="text-center m-10 text-xl">Загрузка туров...</p>;
-  // if (error)
-  //   return (
-  //     <p className="text-center text-red-500 m-10 text-3xl">
-  //       Ошибка при загрузке туров
-  //     </p>
-  //   );
+  if (isLoading)
+    return <p className="text-center m-10 text-xl">Загрузка туров...</p>;
+  if (error)
+    return (
+      <p className="text-center text-red-500 m-10 text-3xl">
+        Ошибка при загрузке туров
+      </p>
+    );
 
   return (
     <div className="container mx-auto relative w-241">

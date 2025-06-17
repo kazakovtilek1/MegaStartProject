@@ -1,7 +1,8 @@
 "use client";
 
-import { guides, Guide } from "@/constants/Guides";
-import { useEffect, useState, lazy, Suspense } from "react";
+import { Guide } from "@/constants/Guides";
+import { lazy, Suspense } from "react";
+import { useGetGuidesQuery } from "@/src/store/slices/GuidesApi";
 import { motion } from "framer-motion";
 import SkeletonGuideCard from "./SkeletonGuideCard";
 import { textClass } from "@/app/styles/lazyLodaingTextStyles";
@@ -9,42 +10,44 @@ import { textClass } from "@/app/styles/lazyLodaingTextStyles";
 const GuideCard = lazy(() => import("./GuideCard"));
 
 export default function Guides() {
-  const [loading, setLoading] = useState(true);
+  const { data: guides, isLoading, error } = useGetGuidesQuery();
 
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      setLoading(false);
-    }, 1000);
-    return () => clearTimeout(timeout);
-  }, []);
+  if (isLoading) {
+    return (
+      <div className="container mx-auto flex justify-center gap-14 flex-wrap my-24">
+        {Array.from({ length: 3 }).map((_, index) => (
+          <SkeletonGuideCard key={index} />
+        ))}
+      </div>
+    );
+  }
+
+  if (error || !guides) {
+    return (
+      <div className="text-center text-red-500 text-xl my-20">
+        Не удалось загрузить список гидов.
+      </div>
+    );
+  }
 
   return (
     <div className="container mx-auto flex justify-center gap-14 flex-wrap my-24">
-      {loading ? (
-        Array.from({ length: 3 }).map((_, index) => (
-          <SkeletonGuideCard key={index} />
-        ))
-      ) : (
-        <Suspense
-          fallback={
-            <div className={textClass}>Загружается список гидов...</div>
-          }
-        >
-          {guides.map((guide: Guide, index) => (
-            <GuideCard key={guide.id} guide={guide} index={index} />
-          ))}
-        </Suspense>
-      )}
-      {!loading && (
-        <motion.button
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5 }}
-          className="w-114 h-12 bg-[#40D885] text-white rounded-[15px] font-medium text-xl cursor-pointer hover:bg-[#27B567] transform transition-transform hover:scale-105 duration-300"
-        >
-          Все гиды
-        </motion.button>
-      )}
+      <Suspense
+        fallback={<div className={textClass}>Загружается список гидов...</div>}
+      >
+        {guides.map((guide: Guide, index) => (
+          <GuideCard key={guide.id} guide={guide} index={index} />
+        ))}
+      </Suspense>
+
+      <motion.button
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.5 }}
+        className="w-114 h-12 bg-[#40D885] text-white rounded-[15px] font-medium text-xl cursor-pointer hover:bg-[#27B567] transform transition-transform hover:scale-105 duration-300"
+      >
+        Все гиды
+      </motion.button>
     </div>
   );
 }

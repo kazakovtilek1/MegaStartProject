@@ -4,13 +4,16 @@ import { Tour } from "@/constants/Tours";
 export const toursApi = createApi({
   reducerPath: "toursApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://680b-158-181-132-208.ngrok-free.app/v1/api",
+    baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL,
   }),
   endpoints: (builder) => ({
     getTours: builder.query<Tour[], void>({
       query: () => "/tours",
     }),
+    getTourById: builder.query<Tour, number>({
+      query: (id) => `/tours/${id}`,
+    }),
   }),
 });
 
-export const { useGetToursQuery } = toursApi;
+export const { useGetToursQuery, useGetTourByIdQuery } = toursApi;

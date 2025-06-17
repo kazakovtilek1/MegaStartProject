@@ -15,7 +15,7 @@ export default function Page() {
       <div>
         <Home />
         <ToursCards />
-        <Guides />
+        {/* <Guides /> */}
         <LeaveReview />
         <Suspense
           fallback={<div className={textClass}>Загрузка отзывов...</div>}

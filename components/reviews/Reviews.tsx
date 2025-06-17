@@ -1,22 +1,42 @@
+"use client";
+
 import { LiaStarSolid } from "react-icons/lia";
-import { reviews } from "@/constants/Reviews";
+import { useGetReviewsQuery } from "@/src/store/slices/ReviewsApi";
 import React from "react";
 
 const Reviews = React.memo(function Reviews() {
+  const { data: reviews, isLoading, error } = useGetReviewsQuery();
+
+  if (isLoading) {
+    return <div className="text-center my-10 text-xl">Загрузка отзывов...</div>;
+  }
+
+  if (error || !reviews) {
+    return (
+      <div className="text-center text-red-500 my-10">
+        Ошибка загрузки отзывов.
+      </div>
+    );
+  }
   return (
-    <div className="container mx-auto flex justify-between gap-5">
+    <div className="container mx-auto flex flex-wrap gap-5">
       {reviews.map((review) => {
-        const filledStars = Math.min(review.rating ?? 0, 5);
-        const emptyStars = Math.max(5 - filledStars, 0);
+        const rating =
+          typeof review.rating === "number" && !isNaN(review.rating)
+            ? Math.floor(Math.min(Math.max(review.rating, 0), 5))
+            : 0;
+
+        const filledStars = rating;
+        const emptyStars = 5 - filledStars;
 
         return (
           <div
             key={review.id}
-            className="w-77 h-96 flex justify-center flex-col items-center"
+            className="flex w-[23%] justify-center items-center flex-col"
           >
             <h3 className="text-2xl font-medium">{review.name}</h3>
 
-            <div className="flex justify-center my-1.5">
+            <div className="flex my-1.5">
               {[...Array(filledStars)].map((_, i) => (
                 <LiaStarSolid
                   key={`filled-${i}`}
@@ -31,7 +51,7 @@ const Reviews = React.memo(function Reviews() {
               ))}
             </div>
 
-            <p className="text-justify text-base font-normal p-2.5">{`"${review.text}"`}</p>
+            <p className="w-full text-justify break-words text-base font-normal p-2.5">{`"${review.comment}"`}</p>
           </div>
         );
       })}

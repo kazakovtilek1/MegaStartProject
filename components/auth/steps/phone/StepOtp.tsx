@@ -1,12 +1,21 @@
 "use client";
 
 import { useForm } from "react-hook-form";
+import { IoIosClose, IoIosArrowBack } from "react-icons/io";
+import { useStep } from "../../StepContext";
+import {
+  LoginBtnClass,
+  CloseBtnClass,
+  BackBtnClass,
+} from "@/app/styles/auth/authBtnStyles";
 
 type TelegramFormData = {
   TelegramNumber: number;
 };
 
-export default function LoginWithTelegram({ onBack }: { onBack: () => void }) {
+export default function LoginWithTelegram() {
+  const { next, back, close } = useStep();
+
   const {
     register,
     handleSubmit,
@@ -14,12 +23,30 @@ export default function LoginWithTelegram({ onBack }: { onBack: () => void }) {
   } = useForm<TelegramFormData>();
 
   const onSubmit = (data: TelegramFormData) => {
+    next();
     console.log("Отправка кода на Telegram:", data.TelegramNumber);
     // отправка на API
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
+      <button
+        type="button"
+        onClick={close}
+        aria-label="Закрыть"
+        className={CloseBtnClass}
+      >
+        <IoIosClose />
+      </button>
+
+      <button
+        type="button"
+        onClick={back}
+        aria-label="Назад"
+        className={BackBtnClass}
+      >
+        <IoIosArrowBack />
+      </button>
       <h2 className="text-[32px] font-medium text-center mb-18">Вход</h2>
       <input
         {...register("TelegramNumber", {
@@ -53,18 +80,8 @@ export default function LoginWithTelegram({ onBack }: { onBack: () => void }) {
       <button className="text-base font-medium cursor-pointer self-start">
         Отправить код повторно
       </button>
-      <button
-        type="submit"
-        className="w-full bg-[#3DD0C9] p-[10px] rounded-[10px] font-medium text-xl cursor-pointer hover:bg-[#e5e5e7] mb-5 mt-16"
-      >
-        Вход
-      </button>
-      <button
-        type="button"
-        onClick={onBack}
-        className="text-sm hover:underline cursor-pointer self-start"
-      >
-        Назад
+      <button type="submit" className={`${LoginBtnClass} mb-5 mt-16`}>
+        Войти
       </button>
     </form>
   );

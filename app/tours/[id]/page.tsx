@@ -1,33 +1,26 @@
 "use client";
 
 import Navbar from "@/components/home/navbar/Navbar";
-import { tours } from "@/constants/Tours";
 import { LiaStarSolid } from "react-icons/lia";
 import "react-datepicker/dist/react-datepicker.css";
 import { useState } from "react";
-import { use } from "react";
+import { useParams } from "next/navigation";
+import { useGetTourByIdQuery } from "@/src/store/slices/ToursApi";
 import DatePickerComponent from "@/components/DatePicker/DatePickerComponent";
 import LeaveReview from "@/components/leaveReview/LeaveReview";
 import Reviews from "@/components/reviews/Reviews";
 import Footer from "@/components/footer/Footer";
 import TourInfo from "@/components/tourInfo/TourInfo";
 
-type Props = {
-  params: Promise<{
-    id: string;
-  }>;
-};
-
-export default function TourPage({ params }: Props) {
-  const { id } = use(params);
+export default function TourPage() {
+  const { id } = useParams() as { id: string };
   const tourId = Number(id);
-  const tour = tours.find((t) => t.id === tourId);
-
+  const { data: tour, isLoading, error } = useGetTourByIdQuery(tourId);
   const [startDate, setStartDate] = useState<Date | null>(null);
 
-  if (!tour) {
-    return <p>Тур не найден.</p>;
-  }
+  if (isLoading) return <p className="text-center m-10 text-xl">Загрузка...</p>;
+  if (error || !tour)
+    return <p className="text-center text-xl text-red-500">Тур не найден</p>;
 
   return (
     <div>

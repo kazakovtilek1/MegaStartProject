@@ -5,6 +5,16 @@ const nextConfig: NextConfig = {
     locales: ["en", "ru"],
     defaultLocale: "ru",
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "picsum.photos",
+        port: "",
+        pathname: "/**",
+      },
+    ],
+  },
 };
 
 export default nextConfig;
