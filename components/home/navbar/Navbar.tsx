@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import Search from "./Search";
 import LanguageSwitcher from "./LanguageSwitcher";
 import { navLinksHeader } from "@/constants/navLinksHeader";
@@ -10,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { openLoginModal, closeLoginModal } from "@/src/store/slices/ModalSlice";
 import { RootState } from "@/src/store";
 import LoginStepper from "@/components/auth/LoginStepper";
+import SmartLink from "@/components/smartLink/SmartLink";
 
 export default function Navbar() {
   const dispatch = useDispatch();
@@ -34,21 +34,25 @@ export default function Navbar() {
         </div>
         <div>
           <nav className="hidden md:flex gap-11 ml-21 mr-61 text-base font-semibold">
-            {navLinksHeader.map(({ href, label }) =>
-              label === "Вход" ? (
-                <button
-                  className="cursor-pointer"
-                  key={href}
-                  onClick={handleOpen}
-                >
+            {navLinksHeader.map(({ href, label }) => {
+              if (label === "Вход") {
+                return (
+                  <button
+                    key={href}
+                    onClick={handleOpen}
+                    className="cursor-pointer"
+                  >
+                    {label}
+                  </button>
+                );
+              }
+
+              return (
+                <SmartLink key={href} href={href} className="cursor-pointer">
                   {label}
-                </button>
-              ) : (
-                <Link key={href} href={href}>
-                  {label}
-                </Link>
-              ),
-            )}
+                </SmartLink>
+              );
+            })}
           </nav>
         </div>
         <div className="flex gap-11">

@@ -6,7 +6,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useState } from "react";
 import { useParams } from "next/navigation";
 import { useGetTourByIdQuery } from "@/src/store/slices/ToursApi";
-import DatePickerComponent from "@/components/DatePicker/DatePickerComponent";
+import DatePickerComponent from "@/components/datePicker/DatePickerComponent";
 import LeaveReview from "@/components/leaveReview/LeaveReview";
 import Reviews from "@/components/reviews/Reviews";
 import Footer from "@/components/footer/Footer";

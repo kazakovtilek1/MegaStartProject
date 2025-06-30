@@ -28,7 +28,10 @@ export default function ContactForm() {
 
   return (
     <ErrorBoundary fallback={<div>Ошибка отправки формы</div>}>
-      <div className="flex justify-center gap-28 w-full h-125 bg-[#27B567] mt-25">
+      <div
+        id="contacts"
+        className="flex justify-center gap-28 w-full h-125 bg-[#27B567] mt-25"
+      >
         <div className="text-center mt-51">
           <h3
             className="font-semibold text-[32px] text-white mb-4"

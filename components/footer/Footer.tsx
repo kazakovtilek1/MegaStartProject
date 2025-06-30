@@ -1,11 +1,11 @@
 import { FOOTERVECTOR, LOGO } from "@/constants/Images";
 import Image from "next/image";
 import { navLinksFooter } from "@/constants/navLinksFooter";
-import Link from "next/link";
 import { FaFacebook } from "react-icons/fa";
 import { SlSocialInstagram } from "react-icons/sl";
 import { CiMail } from "react-icons/ci";
 import { LuPhone } from "react-icons/lu";
+import SmartLink from "@/components/smartLink/SmartLink";
 
 export default function Footer() {
   return (
@@ -15,9 +15,9 @@ export default function Footer() {
       </div>
       <div className="flex flex-col justify-between">
         {navLinksFooter.map(({ href, label }) => (
-          <Link key={href} href={href} className="p-2.5">
+          <SmartLink key={href} href={href} className="p-2.5">
             {label}
-          </Link>
+          </SmartLink>
         ))}
       </div>
       <div className="flex flex-col gap-11">

@@ -14,7 +14,7 @@ import {
   oneDayToursButtonClass,
 } from "@/app/styles/ToursCardsStyles";
 
-type FilterType = "best" | "oneDay";
+type FilterType = "tours" | "bestTours";
 
 type ToursCardsProps = {
   isFullPage?: boolean;
@@ -22,7 +22,7 @@ type ToursCardsProps = {
 
 export default function ToursCards({ isFullPage = false }: ToursCardsProps) {
   const [favorites, setFavorites] = useState<number[]>([]);
-  const [selected, setSelected] = useState<FilterType>("best");
+  const [selected, setSelected] = useState<FilterType>("tours");
 
   const { data: tours, isLoading, error } = useGetToursQuery();
 
@@ -57,8 +57,8 @@ export default function ToursCards({ isFullPage = false }: ToursCardsProps) {
 
     let filteredTours = tours;
 
-    if (selected === "oneDay") {
-      filteredTours = tours.filter((tour) => tour.tourDuration === 1);
+    if (selected === "bestTours") {
+      filteredTours = tours.filter((tour) => tour.rating > 4.5);
     }
 
     return filteredTours.map((tour: Tour) => {
@@ -91,24 +91,24 @@ export default function ToursCards({ isFullPage = false }: ToursCardsProps) {
         <div className="flex justify-center">
           <div className={buttonBoxClass}>
             <button
-              onClick={() => handleClick("best")}
+              onClick={() => handleClick("tours")}
               className={`${bestToursButtonClass} ${
-                selected === "best"
+                selected === "tours"
+                  ? "bg-[#40D885]/75 text-white"
+                  : "bg-transparent text-black"
+              }`}
+            >
+              Туры
+            </button>
+            <button
+              onClick={() => handleClick("bestTours")}
+              className={`${oneDayToursButtonClass} ${
+                selected === "bestTours"
                   ? "bg-[#40D885]/75 text-white"
                   : "bg-transparent text-black"
               }`}
             >
               Лучшие туры
-            </button>
-            <button
-              onClick={() => handleClick("oneDay")}
-              className={`${oneDayToursButtonClass} ${
-                selected === "oneDay"
-                  ? "bg-[#40D885]/75 text-white"
-                  : "bg-transparent text-black"
-              }`}
-            >
-              Однодневные туры
             </button>
           </div>
         </div>

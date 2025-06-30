@@ -29,7 +29,7 @@ export default function GuideCard({ guide, index }: GuideCardProps) {
         height={200}
         className="rounded"
       />
-      <div>
+      <div className="">
         <h4 className="font-semibold text-xl">{guide.name}</h4>
         <div className="flex justify-start gap-6 my-2.5">
           <div className="flex justify-center items-center font-medium text-lg">

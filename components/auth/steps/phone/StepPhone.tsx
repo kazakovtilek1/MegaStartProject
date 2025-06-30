@@ -9,7 +9,12 @@ import {
 import { useStep } from "../../StepContext";
 import { useState } from "react";
 import { IoIosClose, IoIosArrowBack } from "react-icons/io";
-import { BackBtnClass, CloseBtnClass, LoginBtnClassNext } from "@/app/styles/auth/authBtnStyles";
+import {
+  BackBtnClass,
+  CloseBtnClass,
+  LoginBtnClassNext,
+} from "@/app/styles/auth/authBtnStyles";
+import { AuthInputClass } from "@/app/styles/auth/authInputStyles";
 
 const countryCodes = [
   { code: "KG", dialCode: "+996" },
@@ -114,7 +119,7 @@ export default function StepPhone() {
             },
           })}
           onChange={handleInput}
-          className="p-2.5 bg-[#F7F8FA] w-full shadow-inner rounded-[10px]"
+          className={`${AuthInputClass} w-full`}
         />
       </div>
 

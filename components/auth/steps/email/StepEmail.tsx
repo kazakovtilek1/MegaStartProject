@@ -15,6 +15,7 @@ import {
   CloseBtnClass,
   BackBtnClass,
 } from "@/app/styles/auth/authBtnStyles";
+import { AuthInputClass } from "@/app/styles/auth/authInputStyles";
 
 type EmailFormData = {
   email: string;
@@ -70,7 +71,7 @@ export default function LoginWithEmail() {
           })}
           type="email"
           placeholder="Введите почту или логин *"
-          className="p-2.5 bg-[#F7F8FA] shadow-inner rounded-[10px] focus:outline-none text-base font-medium"
+          className={AuthInputClass}
         />
         {errors.email && (
           <span className="text-red-500 text-sm ml-0.5">
@@ -89,7 +90,7 @@ export default function LoginWithEmail() {
             })}
             type={showPassword ? "text" : "password"}
             placeholder="Пароль"
-            className="w-full p-2.5 bg-[#F7F8FA] shadow-inner rounded-[10px] focus:outline-none text-base font-medium"
+            className={`${AuthInputClass} w-full`}
           />
           <button
             type="button"
@@ -117,7 +118,7 @@ export default function LoginWithEmail() {
 
         <button
           type="button"
-          className="font-medium text-start text-base cursor-pointer text-[#18A0FB] hover:underline"
+          className="w-fit font-medium text-base cursor-pointer text-[#18A0FB] hover:underline"
           onClick={() => alert("Функция восстановления ещё не реализована")}
         >
           Забыли пароль?

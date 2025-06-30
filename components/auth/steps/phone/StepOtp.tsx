@@ -8,6 +8,7 @@ import {
   CloseBtnClass,
   BackBtnClass,
 } from "@/app/styles/auth/authBtnStyles";
+import { AuthInputClass } from "@/app/styles/auth/authInputStyles";
 
 type TelegramFormData = {
   TelegramNumber: number;
@@ -58,7 +59,7 @@ export default function LoginWithTelegram() {
         })}
         type="text"
         placeholder="Номер телефона Telegram *"
-        className="w-full p-2.5 bg-[#F7F8FA] shadow-inner rounded-[10px] focus:outline-none text-base font-medium"
+        className={AuthInputClass}
       />
       {errors.TelegramNumber && (
         <span className="text-red-500 text-sm ml-0.5">
@@ -70,7 +71,7 @@ export default function LoginWithTelegram() {
           type="text"
           inputMode="numeric"
           maxLength={6}
-          className="w-full p-2.5 bg-[#F7F8FA] shadow-inner rounded-[10px] focus:outline-none text-base font-medium"
+          className={`${AuthInputClass} w-full`}
           placeholder="Код"
         />
         <p className="w-32 rounded-[10px] p-2.5 shadow-inner text-base font-medium">

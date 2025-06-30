@@ -14,7 +14,7 @@ export default function Guides() {
 
   if (isLoading) {
     return (
-      <div className="container mx-auto flex justify-center gap-14 flex-wrap my-24">
+      <div className="container mx-auto flex justify-center items-center gap-14 flex-col my-24">
         {Array.from({ length: 3 }).map((_, index) => (
           <SkeletonGuideCard key={index} />
         ))}
@@ -31,7 +31,10 @@ export default function Guides() {
   }
 
   return (
-    <div className="container mx-auto flex justify-center gap-14 flex-wrap my-24">
+    <div
+      id="guides"
+      className="container mx-auto flex justify-center items-center gap-14 flex-col my-24"
+    >
       <Suspense
         fallback={<div className={textClass}>Загружается список гидов...</div>}
       >
