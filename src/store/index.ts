@@ -1,8 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
 import languageReducer from "./slices/languageSlice";
-import { toursApi } from "./slices/ToursApi";
-import { guidesApi } from "./slices/GuidesApi";
-import { reviewsApi } from "./slices/ReviewsApi";
+import { toursApi } from "./api/ToursApi";
+import { guidesApi } from "./api/GuidesApi";
+import { reviewsApi } from "./api/ReviewsApi";
 import modalReducer from "@/src/store/slices/ModalSlice";
 
 export const store = configureStore({

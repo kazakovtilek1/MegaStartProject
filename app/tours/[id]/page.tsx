@@ -5,7 +5,7 @@ import { LiaStarSolid } from "react-icons/lia";
 import "react-datepicker/dist/react-datepicker.css";
 import { useState } from "react";
 import { useParams } from "next/navigation";
-import { useGetTourByIdQuery } from "@/src/store/slices/ToursApi";
+import { useGetTourByIdQuery } from "@/src/store/api/ToursApi";
 import DatePickerComponent from "@/components/datePicker/DatePickerComponent";
 import LeaveReview from "@/components/leaveReview/LeaveReview";
 import Reviews from "@/components/reviews/Reviews";
@@ -20,7 +20,7 @@ export default function TourPage() {
 
   if (isLoading) return <p className="text-center m-10 text-xl">Загрузка...</p>;
   if (error || !tour)
-    return <p className="text-center text-xl text-red-500">Тур не найден</p>;
+    return <p className="text-center text-xl text-red-500">Тур не найден.</p>;
 
   return (
     <div>

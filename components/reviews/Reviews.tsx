@@ -6,7 +6,7 @@ import "swiper/css/pagination";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
 import { LiaStarSolid } from "react-icons/lia";
-import { useGetReviewsQuery } from "@/src/store/slices/ReviewsApi";
+import { useGetReviewsQuery } from "@/src/store/api/ReviewsApi";
 import React from "react";
 
 const Reviews = React.memo(function Reviews() {
@@ -19,7 +19,7 @@ const Reviews = React.memo(function Reviews() {
   if (error || !reviews) {
     return (
       <div className="text-center text-red-500 my-10">
-        Ошибка загрузки отзывов.
+        Ошибка при загрузке отзывов...
       </div>
     );
   }

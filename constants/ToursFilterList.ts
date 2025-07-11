@@ -10,14 +10,11 @@ export const regions = [
 ];
 
 export const filterOptions = [
-  { name: "Однодневный", key: "oneday" },
-  { name: "Длительный", key: "long" },
-  { name: "С гидом", key: "guide" },
-  { name: "С проживанием", key: "accommodation" },
-  { name: "С питанием", key: "meals" },
-  { name: "Большая группа", key: "largeGroup" },
+  { name: "Однодневный", key: "oneDay" },
+  { name: "Длительный", key: "longTerm" },
+  { name: "С гидом", key: "guideIncluded" },
+  { name: "С проживанием", key: "withAccommodation" },
+  { name: "С питанием", key: "withFood" },
+  { name: "Большая группа", key: "bigGroup" },
   { name: "Малая группа", key: "smallGroup" },
-  { name: "Легкий тур", key: "easy" },
-  { name: "Средней сложности", key: "medium" },
-  { name: "Сложный тур", key: "hard" },
 ];

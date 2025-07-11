@@ -1,9 +1,18 @@
 import React, { useState } from "react";
 import { regions, filterOptions } from "@/constants/ToursFilterList";
+import { FilterRequest } from "@/constants/Tours";
 
-export default function ToursFilterForm() {
+type Difficulty = "EASY" | "MEDIUM" | "HARD" | "";
+type Props = {
+  onApply: (filters: FilterRequest) => void;
+};
+
+export default function ToursFilterForm({ onApply }: Props) {
   const [region, setRegion] = useState("");
   const [filters, setFilters] = useState<{ [key: string]: boolean }>({});
+  const [difficulty, setDifficulty] = useState<"EASY" | "MEDIUM" | "HARD" | "">(
+    "",
+  );
 
   const handleCheckboxChange = (key: string) => {
     setFilters((prev) => ({ ...prev, [key]: !prev[key] }));
@@ -11,16 +20,40 @@ export default function ToursFilterForm() {
 
   const handleReset = () => {
     setRegion("");
+    setDifficulty("");
     setFilters({});
+    onApply({});
   };
 
   const handleApply = () => {
-    console.log("Регион:", region);
-    console.log("Фильтры:", filters);
+    const filterBody: FilterRequest = {
+      oneDay: filters["oneDay"],
+      longTerm: filters["longTerm"],
+      guideIncluded: filters["guideIncluded"],
+      withAccommodation: filters["withAccommodation"],
+      withFood: filters["withFood"],
+      smallGroup: filters["smallGroup"],
+      bigGroup: filters["bigGroup"],
+      difficulty: difficulty || undefined,
+      region: region || undefined,
+    };
+
+    onApply(filterBody);
+  };
+
+  const handleDifficultyChange = (value: string) => {
+    if (
+      value === "EASY" ||
+      value === "MEDIUM" ||
+      value === "HARD" ||
+      value === ""
+    ) {
+      setDifficulty(value as Difficulty);
+    }
   };
 
   return (
-    <aside className="w-65 h-185 mt-36 mr-16 border border-dashed border-[#9747FF] rounded-[5px] p-5">
+    <aside className="w-65 h-auto mt-36 mr-16 border border-dashed border-[#9747FF] rounded-[5px] p-5">
       <div className="mb-4">
         <select
           className="w-55 h-10 p-2.5 bg-[#F7F8FA] rounded-[10px] text-center font-normal text-sm"
@@ -33,6 +66,19 @@ export default function ToursFilterForm() {
               {region}
             </option>
           ))}
+        </select>
+      </div>
+
+      <div className="mb-4">
+        <select
+          className="w-55 h-10 p-2.5 bg-[#F7F8FA] rounded-[10px] text-center font-normal text-sm"
+          value={difficulty}
+          onChange={(e) => handleDifficultyChange(e.target.value)}
+        >
+          <option value="">Сложность</option>
+          <option value="EASY">Легкий</option>
+          <option value="MEDIUM">Средний</option>
+          <option value="HARD">Сложный</option>
         </select>
       </div>
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { Tour } from "@/constants/Tours";
-import { useGetToursQuery } from "@/src/store/slices/ToursApi";
+import { useGetToursQuery } from "@/src/store/api/ToursApi";
 import { useState, useEffect, useCallback, useMemo } from "react";
 import TourCard from "./TourCard";
 import { IoIosArrowForward } from "react-icons/io";
@@ -18,13 +18,18 @@ type FilterType = "tours" | "bestTours";
 
 type ToursCardsProps = {
   isFullPage?: boolean;
+  filteredTours?: Tour[];
 };
 
-export default function ToursCards({ isFullPage = false }: ToursCardsProps) {
+export default function ToursCards({
+  isFullPage = false,
+  filteredTours,
+}: ToursCardsProps) {
   const [favorites, setFavorites] = useState<number[]>([]);
   const [selected, setSelected] = useState<FilterType>("tours");
 
-  const { data: tours, isLoading, error } = useGetToursQuery();
+  const { data: allTours, isLoading, error } = useGetToursQuery();
+  const tours = filteredTours ?? allTours;
 
   const router = useRouter();
 
@@ -61,6 +66,8 @@ export default function ToursCards({ isFullPage = false }: ToursCardsProps) {
       filteredTours = tours.filter((tour) => tour.rating > 4.5);
     }
 
+    if (!tours || filteredTours.length === 0) return null;
+
     return filteredTours.map((tour: Tour) => {
       const isFavorite = favorites.includes(tour.id);
 
@@ -81,7 +88,7 @@ export default function ToursCards({ isFullPage = false }: ToursCardsProps) {
   if (error)
     return (
       <p className="text-center text-red-500 m-10 text-3xl">
-        Ошибка при загрузке туров
+        Ошибка при загрузке туров...
       </p>
     );
 
@@ -114,7 +121,13 @@ export default function ToursCards({ isFullPage = false }: ToursCardsProps) {
         </div>
       )}
 
-      <div className="flex justify-center gap-5 flex-wrap">{tourCards}</div>
+      <div className="flex gap-5 flex-wrap">
+        {tourCards ?? (
+          <p className="text-center w-full text-xl mt-10">
+            К сожалению, подходящих туров не найдено.
+          </p>
+        )}
+      </div>
 
       {!isFullPage && (
         <div className="flex justify-center">
@@ -127,7 +140,7 @@ export default function ToursCards({ isFullPage = false }: ToursCardsProps) {
         </div>
       )}
       <TbBrandWechat
-        className="absolute bottom-0 -right-30 w-30 h-30 cursor-pointer hover:scale-110 transition-transform duration-300"
+        className="absolute -bottom-10 -right-10 w-30 h-30 cursor-pointer hover:scale-110 transition-transform duration-300"
         strokeWidth={0.5}
       />
     </div>

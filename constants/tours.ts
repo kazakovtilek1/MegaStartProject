@@ -4,10 +4,24 @@ export interface Tour {
   tourDuration: number;
   rating: number;
   price: number;
-  departureDate: string;
+  departureDates: string[];
   placesLeft: number;
+  difficulty: "EASY" | "MEDIUM" | "HARD";
   image: string;
 }
+
+export type FilterRequest = {
+  oneDay?: boolean;
+  longTerm?: boolean;
+  guideIncluded?: boolean;
+  withAccommodation?: boolean;
+  withFood?: boolean;
+  smallGroup?: boolean;
+  bigGroup?: boolean;
+  difficulty?: "EASY" | "MEDIUM" | "HARD";
+  region?: string;
+  type?: "all" | "best" | "private";
+};
 
 // export const tours: Tour[] = [
 //   {

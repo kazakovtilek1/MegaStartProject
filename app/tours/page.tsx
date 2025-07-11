@@ -4,12 +4,30 @@ import Footer from "@/components/footer/Footer";
 import Navbar from "@/components/home/navbar/Navbar";
 import ToursCards from "@/components/toursCards/ToursCards";
 import ToursFilterForm from "@/components/toursFilterForm/ToursFilterForm";
+import { FilterRequest } from "@/constants/Tours";
+import {
+  useGetFilteredToursQuery,
+  useGetIndividualToursQuery,
+} from "@/src/store/api/ToursApi";
 import { useState, useEffect } from "react";
 
 type FilterType = "all" | "best" | "private";
 
 export default function ToursPage() {
   const [filter, setFilter] = useState<FilterType>("all");
+  const [appliedFilters, setAppliedFilters] = useState<FilterRequest | null>(
+    null,
+  );
+
+  const { data: allFilteredTours } = useGetFilteredToursQuery(appliedFilters!, {
+    skip: !appliedFilters || filter === "private",
+  });
+
+  const { data: individualTours } = useGetIndividualToursQuery(undefined, {
+    skip: filter !== "private",
+  });
+
+  const toursToShow = filter === "private" ? individualTours : allFilteredTours;
 
   useEffect(() => {
     const stored = localStorage.getItem("tourFilter") as FilterType | null;
@@ -52,10 +70,12 @@ export default function ToursPage() {
               ))}
             </div>
             <div>
-              <ToursFilterForm />
+              <ToursFilterForm
+                onApply={(filters) => setAppliedFilters(filters)}
+              />
             </div>
           </div>
-          <ToursCards isFullPage />
+          <ToursCards isFullPage filteredTours={toursToShow} />
         </div>
       </div>
       <Footer />

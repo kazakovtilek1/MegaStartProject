@@ -2,7 +2,7 @@
 
 import { Guide } from "@/constants/Guides";
 import { lazy, Suspense } from "react";
-import { useGetGuidesQuery } from "@/src/store/slices/GuidesApi";
+import { useGetGuidesQuery } from "@/src/store/api/GuidesApi";
 import { motion } from "framer-motion";
 import SkeletonGuideCard from "./SkeletonGuideCard";
 import { textClass } from "@/app/styles/lazyLodaingTextStyles";
@@ -25,16 +25,13 @@ export default function Guides() {
   if (error || !guides) {
     return (
       <div className="text-center text-red-500 text-xl my-20">
-        Не удалось загрузить список гидов.
+        Ошибка при загрузке гидов...
       </div>
     );
   }
 
   return (
-    <div
-      id="guides"
-      className="container mx-auto flex justify-center items-center gap-14 flex-col my-24"
-    >
+    <div id="guides" className="container mx-auto flex gap-14 flex-col my-24">
       <Suspense
         fallback={<div className={textClass}>Загружается список гидов...</div>}
       >
@@ -47,7 +44,7 @@ export default function Guides() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5 }}
-        className="w-114 h-12 bg-[#40D885] text-white rounded-[15px] font-medium text-xl cursor-pointer hover:bg-[#27B567] transform transition-transform hover:scale-105 duration-300"
+        className="w-114 h-12 bg-[#40D885] self-center text-white rounded-[15px] font-medium text-xl cursor-pointer hover:bg-[#27B567] transform transition-transform hover:scale-105 duration-300"
       >
         Все гиды
       </motion.button>
