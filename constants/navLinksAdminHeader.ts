@@ -1,7 +1,7 @@
 export const navLinksAdminHeader = [
-  { href: "/", label: "Главная" },
-  { href: "/tours", label: "Туры" },
-  { href: "/authors", label: "Авторы" },
-  { href: "/statistics", label: "Статистика" },
+  { href: "/admin", label: "Главная" },
+  { href: "/admin/tours", label: "Туры" },
+  { href: "/admin/authors", label: "Авторы" },
+  { href: "/admin/statistics", label: "Статистика" },
   { href: "/exit", label: "Выход" },
 ];
