@@ -1,7 +1,7 @@
 export default function SkeletonGuideCard() {
   return (
     <div className="w-265 h-50 flex gap-8 animate-pulse">
-      <div className="w-[200px] h-[200px] bg-gray-300 rounded" />
+      <div className="w-[200px] h-[200px] bg-gray-300 rounded-full" />
       <div className="flex flex-col gap-3 py-1">
         <div className="w-[120px] h-[24px] bg-gray-300 rounded" />
         <div className="flex gap-6">

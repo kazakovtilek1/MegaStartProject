@@ -1,0 +1,133 @@
+export interface Tour {
+  id: number;
+  title: string;
+  rating: number;
+  price: number;
+  departureDates: string[];
+  placesLeft: number;
+  tourDuration: number;
+  author: string;
+  difficulty: "EASY" | "MEDIUM" | "HARD";
+  visits: number;
+  image: string;
+}
+
+// export const tours: Tour[] = [
+//   {
+//     id: 1,
+//     title: "Жети Огуз",
+//     rating: 4.8,
+//     price: 5000,
+//     departureDates: ["18.03", "20.03"],
+//     placesLeft: 6,
+//     tourDuration: 3,
+//     author: "@Manager213",
+//     difficulty: "EASY",
+//     visits: 50,
+//     image: "/images/zhetiOguz.png",
+//   },
+//   {
+//     id: 2,
+//     title: "Ара Кол",
+//     rating: 4.6,
+//     price: 1500,
+//     departureDates: ["18.03", "20.03"],
+//     placesLeft: 3,
+//     tourDuration: 1,
+//     author: "@Manager213",
+//     difficulty: "EASY",
+//     visits: 60,
+//     image: "/images/araKol.png",
+//   },
+//   {
+//     id: 3,
+//     title: "Каньон Сказка",
+//     rating: 5.0,
+//     price: 2000,
+//     departureDates: ["18.03", "20.03"],
+//     placesLeft: 5,
+//     tourDuration: 5,
+//     author: "@Manager213",
+//     difficulty: "EASY",
+//     visits: 30,
+//     image: "/images/canyonSkazka.png",
+//   },
+//   {
+//     id: 4,
+//     title: "Каньон Сказка",
+//     rating: 5.0,
+//     price: 2000,
+//     departureDates: ["18.03", "20.03"],
+//     placesLeft: 5,
+//     tourDuration: 3,
+//     author: "@Manager213",
+//     difficulty: "HARD",
+//     visits: 70,
+//     image: "/images/canyonSkazka.png",
+//   },
+//   {
+//     id: 5,
+//     title: "Каньон Сказка",
+//     rating: 5.0,
+//     price: 2000,
+//     departureDates: ["18.03", "20.03"],
+//     placesLeft: 5,
+//     tourDuration: 2,
+//     author: "@Manager213",
+//     difficulty: "MEDIUM",
+//     visits: 55,
+//     image: "/images/canyonSkazka.png",
+//   },
+//   {
+//     id: 6,
+//     title: "Каньон Сказка",
+//     rating: 5.0,
+//     price: 2000,
+//     departureDates: ["18.03", "20.03"],
+//     placesLeft: 5,
+//     tourDuration: 3,
+//     author: "@Manager213",
+//     difficulty: "MEDIUM",
+//     visits: 48,
+//     image: "/images/canyonSkazka.png",
+//   },
+//   {
+//     id: 7,
+//     title: "Каньон Сказка",
+//     rating: 5.0,
+//     price: 2000,
+//     departureDates: ["18.03", "20.03"],
+//     placesLeft: 5,
+//     tourDuration: 3,
+//     author: "@Manager213",
+//     difficulty: "MEDIUM",
+//     visits: 38,
+//     image: "/images/canyonSkazka.png",
+//   },
+//   {
+//     id: 8,
+//     title: "Каньон Сказка",
+//     rating: 5.0,
+//     price: 2000,
+//     departureDates: ["18.03", "20.03"],
+//     placesLeft: 5,
+//     tourDuration: 3,
+//     author: "@Manager213",
+//     difficulty: "MEDIUM",
+//     visits: 67,
+//     image: "/images/canyonSkazka.png",
+//   },
+//   {
+//     id: 9,
+//     title: "Каньон Сказка",
+//     rating: 5.0,
+//     price: 2000,
+//     departureDates: ["18.03", "20.03"],
+//     placesLeft: 5,
+//     tourDuration: 3,
+//     author: "@Manager213",
+//     difficulty: "MEDIUM",
+//     visits: 59,
+//     image: "/images/canyonSkazka.png",
+//   },
+// ];

@@ -1,7 +1,7 @@
 "use client";
 
 import { Guide } from "@/constants/Guides";
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useState } from "react";
 import { useGetGuidesQuery } from "@/src/store/api/GuidesApi";
 import { motion } from "framer-motion";
 import SkeletonGuideCard from "./SkeletonGuideCard";
@@ -11,6 +11,7 @@ const GuideCard = lazy(() => import("./GuideCard"));
 
 export default function Guides() {
   const { data: guides, isLoading, error } = useGetGuidesQuery();
+  const [showAll, setShowAll] = useState(false);
 
   if (isLoading) {
     return (
@@ -30,24 +31,39 @@ export default function Guides() {
     );
   }
 
+  const visibleGuides = showAll ? guides : guides.slice(0, 3);
+
   return (
-    <div id="guides" className="container mx-auto flex gap-14 flex-col my-24">
+    <div id="guides" className="container mx-auto flex flex-col gap-14 my-24">
       <Suspense
         fallback={<div className={textClass}>Загружается список гидов...</div>}
       >
-        {guides.map((guide: Guide, index) => (
-          <GuideCard key={guide.id} guide={guide} index={index} />
-        ))}
+        <div className="w-full flex flex-col gap-10">
+          {visibleGuides.length === 0 ? (
+            <p className="text-center text-gray-500 text-xl">
+              Гиды не найдены.
+            </p>
+          ) : (
+            <div className="w-full flex flex-col gap-10">
+              {visibleGuides.map((guide: Guide, index: number) => (
+                <GuideCard key={guide.id} guide={guide} index={index} />
+              ))}
+            </div>
+          )}
+        </div>
       </Suspense>
 
-      <motion.button
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.5 }}
-        className="w-114 h-12 bg-[#40D885] self-center text-white rounded-[15px] font-medium text-xl cursor-pointer hover:bg-[#27B567] transform transition-transform hover:scale-105 duration-300"
-      >
-        Все гиды
-      </motion.button>
+      {!showAll && guides.length > 3 && (
+        <motion.button
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5 }}
+          className="w-114 h-12 bg-[#40D885] self-center text-white rounded-[15px] font-medium text-xl cursor-pointer hover:bg-[#27B567] transform transition-transform hover:scale-105 duration-300"
+          onClick={() => setShowAll(true)}
+        >
+          Все гиды
+        </motion.button>
+      )}
     </div>
   );
 }

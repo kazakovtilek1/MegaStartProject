@@ -1,5 +1,5 @@
 import Home from "@/components/home/Home";
-import ToursCards from "@/components/toursCards/ToursCards";
+import ToursCards from "@/components/toursCards/TourCards";
 import Guides from "@/components/guides/Guides";
 import LeaveReview from "@/components/leaveReview/LeaveReview";
 import Footer from "@/components/footer/Footer";

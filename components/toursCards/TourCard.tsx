@@ -5,6 +5,12 @@ import { getDayLabel } from "../../utilities/pluralize";
 import { Tour } from "@/constants/Tours";
 import React from "react";
 import Link from "next/link";
+import {
+  tourCardDurationClass,
+  tourCardPriceDeparturePlacesClass,
+  tourCardRatingClass,
+  tourCardTitleClass,
+} from "@/app/styles/TourCardStyles";
 
 type TourCardProps = {
   tour: Tour;
@@ -44,25 +50,27 @@ export default React.memo(function TourCard({
           )}
         </div>
       </div>
-      <div className="flex justify-between">
-        <Link href={`/tours/${tour.id}`}>
-          <h2 className="font-semibold text-lg mt-[7px] hover:scale-103 transition-all duration-200 cursor-pointer">
-            {tour.title}
-          </h2>
-        </Link>
-        <p className="flex items-center gap-[3px] text-base font-medium mt-[7px]">
-          {tour.rating}
-          <LiaStarSolid className="w-6 h-5 text-[#E48C3F]" />
+      <div className="flex flex-col gap-[5px]">
+        <div className="flex justify-between">
+          <Link href={`/tours/${tour.id}`}>
+            <h2 className={tourCardTitleClass}>{tour.title}</h2>
+          </Link>
+          <p className={tourCardRatingClass}>
+            {tour.rating}
+            <LiaStarSolid className="w-6 h-5 text-[#E48C3F]" />
+          </p>
+        </div>
+        <p className={tourCardDurationClass}>
+          {tour.tourDuration} {getDayLabel(tour.tourDuration)}
+        </p>
+        <p className={tourCardPriceDeparturePlacesClass}>{tour.price} сом</p>
+        <p className={tourCardPriceDeparturePlacesClass}>
+          Даты выездов: {tour.departureDates.join(", ")}
+        </p>
+        <p className={tourCardPriceDeparturePlacesClass}>
+          Осталось мест: {tour.placesLeft}
         </p>
       </div>
-      <p className="font-medium text-base my-[5px]">
-        {tour.tourDuration} {getDayLabel(tour.tourDuration)}
-      </p>
-      <p className="font-medium text-base">Цена: {tour.price} сом</p>
-      <p className="font-medium text-base my-[5px]">
-        Даты выездов: {tour.departureDates.join(", ")}
-      </p>
-      <p className="font-medium text-base">Осталось мест: {tour.placesLeft}</p>
     </div>
   );
 });

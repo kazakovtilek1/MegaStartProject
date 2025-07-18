@@ -62,7 +62,7 @@ export default function StepStart() {
           onClick={() => next("email")}
           className="w-full p-2.5 bg-[#F7F8FA] font-medium text-base shadow-inner cursor-pointer hover:bg-[#e5e5e7] rounded-[10px]"
         >
-          Войти через почту
+          Войти через почту или логин
         </button>
 
         <button

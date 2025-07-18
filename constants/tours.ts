@@ -6,7 +6,13 @@ export interface Tour {
   price: number;
   departureDates: string[];
   placesLeft: number;
+  author: string;
   difficulty: "EASY" | "MEDIUM" | "HARD";
+  visits: number;
+  description: string;
+  meetingPoint: string;
+  minAge: number;
+  groupSize: number;
   image: string;
 }
 

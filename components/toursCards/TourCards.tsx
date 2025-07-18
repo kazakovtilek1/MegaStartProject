@@ -12,7 +12,7 @@ import {
   bestToursButtonClass,
   buttonBoxClass,
   oneDayToursButtonClass,
-} from "@/app/styles/ToursCardsStyles";
+} from "@/app/styles/TourCardsStyles";
 
 type FilterType = "tours" | "bestTours";
 
@@ -123,7 +123,7 @@ export default function ToursCards({
 
       <div className="flex gap-5 flex-wrap">
         {tourCards ?? (
-          <p className="text-center w-full text-xl mt-10">
+          <p className="text-center w-full text-xl my-10">
             К сожалению, подходящих туров не найдено.
           </p>
         )}

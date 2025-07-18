@@ -22,11 +22,14 @@ export default function AdminTours() {
           <p>Всего туров</p>
           <p>58</p>
         </Link>
-        <Link href="/admin/tours/active" className={adminLinkTextClass}>
+        <Link href="/admin/tours?filter=active" className={adminLinkTextClass}>
           <p>Активные туры</p>
           <p>50</p>
         </Link>
-        <Link href="/admin/tours/archive" className={adminLinkTextClass}>
+        <Link
+          href="/admin/tours?filter=archived"
+          className={adminLinkTextClass}
+        >
           <p>Туры в архиве</p>
           <p>8</p>
         </Link>

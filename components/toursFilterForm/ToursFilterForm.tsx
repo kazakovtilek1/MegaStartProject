@@ -5,9 +5,10 @@ import { FilterRequest } from "@/constants/Tours";
 type Difficulty = "EASY" | "MEDIUM" | "HARD" | "";
 type Props = {
   onApply: (filters: FilterRequest) => void;
+  disabled?: boolean;
 };
 
-export default function ToursFilterForm({ onApply }: Props) {
+export default function ToursFilterForm({ onApply, disabled = false }: Props) {
   const [region, setRegion] = useState("");
   const [filters, setFilters] = useState<{ [key: string]: boolean }>({});
   const [difficulty, setDifficulty] = useState<"EASY" | "MEDIUM" | "HARD" | "">(
@@ -53,9 +54,14 @@ export default function ToursFilterForm({ onApply }: Props) {
   };
 
   return (
-    <aside className="w-65 h-auto mt-36 mr-16 border border-dashed border-[#9747FF] rounded-[5px] p-5">
+    <aside
+      className={`w-65 h-auto mt-36 mr-16 border border-dashed border-[#9747FF] rounded-[5px] p-5 ${
+        disabled ? "opacity-50 pointer-events-none" : ""
+      }`}
+    >
       <div className="mb-4">
         <select
+          disabled={disabled}
           className="w-55 h-10 p-2.5 bg-[#F7F8FA] rounded-[10px] text-center font-normal text-sm"
           value={region}
           onChange={(e) => setRegion(e.target.value)}
@@ -71,14 +77,15 @@ export default function ToursFilterForm({ onApply }: Props) {
 
       <div className="mb-4">
         <select
+          disabled={disabled}
           className="w-55 h-10 p-2.5 bg-[#F7F8FA] rounded-[10px] text-center font-normal text-sm"
           value={difficulty}
           onChange={(e) => handleDifficultyChange(e.target.value)}
         >
           <option value="">Сложность</option>
-          <option value="EASY">Легкий</option>
-          <option value="MEDIUM">Средний</option>
-          <option value="HARD">Сложный</option>
+          <option value="EASY">Легкий тур</option>
+          <option value="MEDIUM">Средний тур</option>
+          <option value="HARD">Сложный тур</option>
         </select>
       </div>
 
@@ -90,6 +97,7 @@ export default function ToursFilterForm({ onApply }: Props) {
           >
             <input
               type="checkbox"
+              disabled={disabled}
               checked={!!filters[key]}
               onChange={() => handleCheckboxChange(key)}
               className="form-checkbox w-6 h-6"
@@ -101,16 +109,24 @@ export default function ToursFilterForm({ onApply }: Props) {
 
       <div className="flex flex-col space-y-2">
         <button
+          disabled={disabled}
           type="button"
           onClick={handleApply}
-          className="w-55 h-10 p-2.5 bg-[#E48C3F] hover:bg-[#CB6E1C] text-white rounded-[10px] cursor-pointer font-semibold text-sm"
+          className={`w-55 h-10 p-2.5 bg-[#E48C3F] text-white rounded-[10px] cursor-pointer font-semibold text-sm ${
+            disabled ? "opacity-50 cursor-not-allowed" : "hover:bg-[#CB6E1C]"
+          }`}
         >
           Применить
         </button>
         <button
+          disabled={disabled}
           type="button"
           onClick={handleReset}
-          className="w-55 h-10 cursor-pointer hover:bg-[#ebeced] rounded-[10px] font-normal text-sm"
+          className={`w-55 h-10 cursor-pointer rounded-[10px] font-normal text-sm ${
+            disabled
+              ? "opacity-50 cursor-not-allowed hover:bg-transparent"
+              : "hover:bg-[#ebeced]"
+          }`}
         >
           Сбросить
         </button>

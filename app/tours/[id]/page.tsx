@@ -34,15 +34,18 @@ export default function TourPage() {
           </div>
         </div>
         <div className="my-16 flex gap-21 items-center font-semibold text-[32px]">
-          <h2>Тур на {tour.title}</h2>
+          <h2>{tour.title}</h2>
           <p className="flex items-center gap-1.5 text-2xl font-semibold mt-[7px]">
             {tour.rating}
             <LiaStarSolid className="w-8 h-8 text-[#E48C3F]" />
           </p>
         </div>
         <div className="flex">
-          <div className="font-medium text-xl">
-            <p className="mb-10">Ближайшие даты выездов</p>
+          <div className="flex flex-col gap-6">
+            <p className="font-medium text-xl">Ближайшие даты выездов:</p>
+            <p className="font-normal text-lg">
+              {tour.departureDates.join(", ")}
+            </p>
             <button className="w-77 h-12 bg-[#2CA261] text-white rounded-[10px] cursor-pointer hover:bg-[#40D885] transition-colors duration-250 ease-in-out">
               Забронировать
             </button>
@@ -51,35 +54,6 @@ export default function TourPage() {
             startDate={startDate}
             setStartDate={setStartDate}
           />
-        </div>
-        <div className="flex flex-col gap-4 mt-16">
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum.
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum.
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum.
-          </p>
         </div>
         <TourInfo />
       </div>

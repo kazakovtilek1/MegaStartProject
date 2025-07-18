@@ -2,7 +2,7 @@
 
 import Footer from "@/components/footer/Footer";
 import Navbar from "@/components/home/navbar/Navbar";
-import ToursCards from "@/components/toursCards/ToursCards";
+import TourCards from "@/components/toursCards/TourCards";
 import ToursFilterForm from "@/components/toursFilterForm/ToursFilterForm";
 import { FilterRequest } from "@/constants/Tours";
 import {
@@ -19,10 +19,12 @@ export default function ToursPage() {
     null,
   );
 
+  // Запрос фильтрованных туров (кроме private)
   const { data: allFilteredTours } = useGetFilteredToursQuery(appliedFilters!, {
     skip: !appliedFilters || filter === "private",
   });
 
+  // Запрос индивидуальных туров
   const { data: individualTours } = useGetIndividualToursQuery(undefined, {
     skip: filter !== "private",
   });
@@ -36,9 +38,14 @@ export default function ToursPage() {
     }
   }, []);
 
+  // При смене фильтра сбрасываем применённые фильтры, если не private
   const handleFilterChange = (newFilter: FilterType) => {
     setFilter(newFilter);
     localStorage.setItem("tourFilter", newFilter);
+
+    if (newFilter !== "private") {
+      setAppliedFilters(null); // сбросить фильтры при смене типа тура (кроме private)
+    }
   };
 
   const filters = [
@@ -51,7 +58,7 @@ export default function ToursPage() {
     <div className="flex flex-col items-center">
       <div>
         <Navbar />
-        <div className="flex mt-25">
+        <div className="flex gap-6 mt-25">
           <div>
             <div className="flex flex-col gap-6">
               <h3 className="font-semibold text-2xl underline">Туры</h3>
@@ -72,10 +79,11 @@ export default function ToursPage() {
             <div>
               <ToursFilterForm
                 onApply={(filters) => setAppliedFilters(filters)}
+                disabled={filter === "private"}
               />
             </div>
           </div>
-          <ToursCards isFullPage filteredTours={toursToShow} />
+          <TourCards isFullPage filteredTours={toursToShow} />
         </div>
       </div>
       <Footer />

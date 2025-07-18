@@ -16,23 +16,21 @@ export default function GuideCard({ guide, index }: GuideCardProps) {
   return (
     <motion.div
       key={guide.id}
-      className="w-265 h-50 flex justify-center gap-8"
+      className="w-full h-50 flex justify-start gap-8"
       variants={cardsAnimation}
       initial="hidden"
       animate="visible"
       custom={index}
     >
       <div className="flex gap-8">
-        <div>
-          <Image
-            src={guide.image}
-            alt={guide.name}
-            width={200}
-            height={200}
-            className="rounded"
-          />
-        </div>
-        <div>
+        <Image
+          src={guide.image}
+          alt={guide.name}
+          width={200}
+          height={200}
+          className="rounded-full"
+        />
+        <div className="flex flex-col">
           <h4 className="font-semibold text-xl">{guide.name}</h4>
           <div className="flex justify-start gap-6 my-2.5">
             <div className="flex justify-center items-center font-medium text-lg">
