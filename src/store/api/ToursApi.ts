@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { Tour, FilterRequest } from "@/constants/Tours";
+import { Tour, FilterRequest } from "@/constants/Tours"
 
 export const toursApi = createApi({
   reducerPath: "toursApi",
