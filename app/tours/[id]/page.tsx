@@ -4,15 +4,21 @@ import Navbar from "@/components/home/navbar/Navbar";
 import { LiaStarSolid } from "react-icons/lia";
 import "react-datepicker/dist/react-datepicker.css";
 import { useState } from "react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useGetTourByIdQuery } from "@/src/store/api/ToursApi";
 import DatePickerComponent from "@/components/datePicker/DatePickerComponent";
 import LeaveReview from "@/components/leaveReview/LeaveReview";
 import Reviews from "@/components/reviews/Reviews";
 import Footer from "@/components/footer/Footer";
 import TourInfo from "@/components/tourInfo/TourInfo";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/src/store";
+import { openLoginModal } from "@/src/store/slices/ModalSlice";
 
 export default function TourPage() {
+  const router = useRouter();
+  const user = useSelector((state: RootState) => state.auth.user);
+  const dispatch = useDispatch();
   const { id } = useParams() as { id: string };
   const tourId = Number(id);
   const { data: tour, isLoading, error } = useGetTourByIdQuery(tourId);
@@ -21,6 +27,14 @@ export default function TourPage() {
   if (isLoading) return <p className="text-center m-10 text-xl">Загрузка...</p>;
   if (error || !tour)
     return <p className="text-center text-xl text-red-500">Тур не найден.</p>;
+
+  const handleBookingClick = () => {
+    if (user) {
+      router.push(`/tours/${tour.id}/booking`);
+    } else {
+      dispatch(openLoginModal());
+    }
+  };
 
   return (
     <div>
@@ -46,7 +60,10 @@ export default function TourPage() {
             <p className="font-normal text-lg">
               {tour.departureDates.join(", ")}
             </p>
-            <button className="w-77 h-12 bg-[#2CA261] text-white rounded-[10px] cursor-pointer hover:bg-[#40D885] transition-colors duration-250 ease-in-out">
+            <button
+              onClick={handleBookingClick}
+              className="w-77 h-12 bg-[#2CA261] text-white rounded-[10px] cursor-pointer hover:bg-[#40D885] transition-colors duration-250 ease-in-out"
+            >
               Забронировать
             </button>
           </div>

@@ -25,7 +25,7 @@ export default function GuideCard({ guide, index }: GuideCardProps) {
       <div className="flex gap-8">
         <Image
           src={guide.image}
-          alt={guide.name}
+          alt={guide.name || "Guide image"}
           width={200}
           height={200}
           className="rounded-full"

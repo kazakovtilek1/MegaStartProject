@@ -2,6 +2,9 @@
 
 import { useStep } from "../../StepContext";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import { closeLoginModal } from "@/src/store/slices/ModalSlice";
+import { setUser } from "@/src/store/slices/AuthSlice";
 import {
   IoIosArrowBack,
   IoIosClose,
@@ -9,6 +12,7 @@ import {
   IoIosEyeOff,
 } from "react-icons/io";
 import { useState } from "react";
+import axios, { AxiosError } from "axios";
 import {
   LoginBtnClass,
   LoginBtnClassNext,
@@ -16,9 +20,10 @@ import {
   BackBtnClass,
 } from "@/app/styles/auth/authBtnStyles";
 import { AuthInputClass } from "@/app/styles/auth/authInputStyles";
+import { saveTokens } from "@/utilities/auth";
 
 type EmailFormData = {
-  email: string;
+  identifier: string;
   password: string;
   rememberMe: boolean;
 };
@@ -32,10 +37,42 @@ export default function LoginWithEmail() {
 
   const { next, back, close } = useStep();
   const [showPassword, setShowPassword] = useState(false);
+  const dispatch = useDispatch();
 
-  const onSubmit = (data: EmailFormData) => {
-    next();
-    //отправить на API
+  const onSubmit = async (data: EmailFormData) => {
+    try {
+      const response = await axios.post(
+        "http://34.18.76.114/v1/api/sign-in",
+        {
+          identifier: data.identifier,
+          password: data.password,
+        },
+        {
+          withCredentials: true,
+        },
+      );
+
+      const { accessToken, refreshToken } = response.data;
+      saveTokens(accessToken, refreshToken);
+
+      // Получаем профиль текущего пользователя
+      const profileResponse = await axios.get(
+        "http://34.18.76.114/v1/api/profiles/me",
+        {
+          headers: { Authorization: `Bearer ${accessToken}` },
+        },
+      );
+
+      dispatch(setUser(profileResponse.data));
+      dispatch(closeLoginModal());
+    } catch (error) {
+      const err = error as AxiosError<{ message?: string }>;
+      console.error(
+        "Ошибка при подтверждении OTP:",
+        err.response?.data || err.message,
+      );
+      alert(err.response?.data?.message || "Ошибка входа. Проверьте код.");
+    }
   };
 
   return (
@@ -57,25 +94,23 @@ export default function LoginWithEmail() {
       >
         <IoIosArrowBack />
       </button>
-      <h2 className="text-[32px] font-medium text-center mb-7">
-        Вход через почту
-      </h2>
+      <h2 className="text-[32px] font-medium text-center mb-7">Вход</h2>
       <div className="w-full flex flex-col gap-3.5">
         <input
-          {...register("email", {
+          {...register("identifier", {
             required: "Введите Email",
-            pattern: {
-              value: /^\S+@\S+\.\S+$/,
-              message: "Некорректный Email",
-            },
+            // pattern: {
+            //   value: /^\S+@\S+\.\S+$/,
+            //   message: "Некорректный Email",
+            // },
           })}
-          type="email"
+          type="text"
           placeholder="Введите почту или логин *"
           className={AuthInputClass}
         />
-        {errors.email && (
+        {errors.identifier && (
           <span className="text-red-500 text-sm ml-0.5">
-            {errors.email.message}
+            {errors.identifier.message}
           </span>
         )}
 

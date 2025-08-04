@@ -3,6 +3,7 @@ import "./globals.css";
 import localFont from "next/font/local";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import { Providers } from "../src/Providers";
+import AuthProvider from "@/components/AuthProvider";
 
 const montserrat = localFont({
   src: [
@@ -46,7 +47,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${montserrat.variable} ${inter.variable}`}>
         <Providers>
-          <ErrorBoundary>{children}</ErrorBoundary>
+          <AuthProvider>
+            <ErrorBoundary>{children}</ErrorBoundary>
+          </AuthProvider>
         </Providers>
       </body>
     </html>

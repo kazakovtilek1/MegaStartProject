@@ -3,7 +3,7 @@
 import { useSearchParams, useRouter } from "next/navigation";
 import { useMemo, useState, useEffect } from "react";
 import AdminTourCard from "@/components/admin/tours/AdminTourCard";
-import AdminToursFilter from "@/components/admin/adminTourFilters/AdminToursFilter";
+import AdminToursFilter from "@/components/admin/adminTourFilter/AdminTourFilter";
 import { FilterType } from "@/constants/AdminTourTypes";
 import { filterTours } from "@/utilities/filterTours";
 import { useGetToursQuery } from "@/src/store/api/ToursApi";
@@ -13,7 +13,7 @@ const FILTERS: FilterType[] = [
   "active",
   "archived",
   "popular",
-  "lowDemand",
+  "unpopular",
 ];
 
 export default function AdminToursPage() {
@@ -57,6 +57,7 @@ export default function AdminToursPage() {
         <AdminToursFilter
           currentFilter={currentFilter}
           onFilterChange={handleFilterChange}
+          filtersToShow={FILTERS}
         />
 
         {/* Контент */}
@@ -64,7 +65,7 @@ export default function AdminToursPage() {
           {isLoading ? (
             <p className="text-lg">Загрузка туров...</p>
           ) : error ? (
-            <p className="text-lg text-red-500">Ошибка загрузки туров</p>
+            <p className="text-lg text-red-500">Ошибка загрузки туров.</p>
           ) : (
             <>
               <p className="text-lg font-medium mb-4 ml-2">

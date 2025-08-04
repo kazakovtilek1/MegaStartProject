@@ -4,17 +4,17 @@ import { useForm, FormProvider } from "react-hook-form";
 import { StepProvider, useStep } from "./StepContext";
 
 import StartStep from "./steps/StartStep";
-import StepPhone from "./steps/phone/StepPhone";
 import StepOtp from "./steps/phone/StepOtp";
 import StepEmail from "./steps/email/StepEmail";
 import StepRegistration from "./steps/registration/StepRegistration";
+import StepRegVerify from "./steps/registration/StepRegVerify";
 
 const stepsMap = {
   start: StartStep,
-  phone: StepPhone,
   email: StepEmail,
   registration: StepRegistration,
   otp: StepOtp,
+  regVerify: StepRegVerify,
 };
 
 type LoginStepperProps = {

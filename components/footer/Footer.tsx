@@ -9,7 +9,7 @@ import SmartLink from "@/components/smartLink/SmartLink";
 
 export default function Footer() {
   return (
-    <div className="container mx-auto flex justify-between items-center py-5 px-23 w-322 h-77 border border-solid rounded-[20px] mt-9 mb-4 shadow-[0_2px_8px_rgba(0,0,0,0.25)]">
+    <footer className="container mx-auto flex justify-between items-center py-5 px-23 w-full border border-solid rounded-[20px] mt-9 mb-4 shadow-[0_2px_8px_rgba(0,0,0,0.25)]">
       <div>
         <Image src={LOGO} alt="LOGO" width={117} height={59} />
       </div>
@@ -46,6 +46,6 @@ export default function Footer() {
           <p className="p-2.5">+ 996 700 000 000</p>
         </div>
       </div>
-    </div>
+    </footer>
   );
 }

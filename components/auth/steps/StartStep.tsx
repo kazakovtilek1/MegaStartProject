@@ -52,7 +52,7 @@ export default function StepStart() {
 
       <div className="mt-19 mb-30 flex flex-col gap-3.5">
         <button
-          onClick={() => next("phone")}
+          onClick={() => next("otp")}
           className="w-full p-2.5 bg-[#F7F8FA] font-medium text-base shadow-inner cursor-pointer hover:bg-[#e5e5e7] rounded-[10px]"
         >
           Войти через Telegram

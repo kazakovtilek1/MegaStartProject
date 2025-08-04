@@ -1,27 +1,54 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { createApi } from "@reduxjs/toolkit/query/react";
 import { Tour, FilterRequest } from "@/constants/Tours";
+import { axiosBaseQuery } from "./baseQueryWithReauth";
 
 export const toursApi = createApi({
   reducerPath: "toursApi",
-  baseQuery: fetchBaseQuery({
-    baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL,
-  }),
+  baseQuery: axiosBaseQuery(),
   endpoints: (builder) => ({
     getTours: builder.query<Tour[], void>({
-      query: () => "/tours",
+      query: () => ({
+        url: "/tours",
+        method: "GET",
+      }),
     }),
     getTourById: builder.query<Tour, number>({
-      query: (id) => `/tours/${id}`,
+      query: (id) => ({
+        url: `/tours/${id}`,
+        method: "GET",
+      }),
     }),
     getFilteredTours: builder.query<Tour[], Partial<FilterRequest>>({
       query: (body) => ({
         url: "/tours/filter",
         method: "POST",
-        body,
+        data: body,
       }),
     }),
     getIndividualTours: builder.query<Tour[], void>({
-      query: () => "/tours/individual",
+      query: () => ({
+        url: "/tours/individual",
+        method: "GET",
+      }),
+    }),
+    addFavorite: builder.mutation<void, number>({
+      query: (tourId) => ({
+        url: `/favorite-tours/${tourId}`,
+        method: "POST",
+        data: { tourId },
+      }),
+    }),
+    removeFavorite: builder.mutation<void, number>({
+      query: (tourId) => ({
+        url: `/favorite-tours/${tourId}`,
+        method: "DELETE",
+      }),
+    }),
+    getFavorites: builder.query<Tour[], void>({
+      query: () => ({
+        url: "/favorite-tours",
+        method: "GET",
+      }),
     }),
   }),
 });
@@ -31,4 +58,7 @@ export const {
   useGetTourByIdQuery,
   useGetFilteredToursQuery,
   useGetIndividualToursQuery,
+  useAddFavoriteMutation,
+  useRemoveFavoriteMutation,
+  useGetFavoritesQuery,
 } = toursApi;

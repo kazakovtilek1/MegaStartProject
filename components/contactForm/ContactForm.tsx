@@ -1,6 +1,6 @@
 "use client";
 
-import { inputClass, inputCommentClass } from "@/app/styles/ContactFormStyles";
+import { inputClass, inputCommentClass } from "@/app/styles/contactForm/ContactFormStyles";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import { useForm } from "react-hook-form";
 

@@ -68,8 +68,8 @@ export default function ToursFilterForm({ onApply, disabled = false }: Props) {
         >
           <option value="">Регион</option>
           {regions.map((region) => (
-            <option key={region} value={region}>
-              {region}
+            <option key={region.value} value={region.value}>
+              {region.label}
             </option>
           ))}
         </select>

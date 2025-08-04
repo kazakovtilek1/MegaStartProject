@@ -1,13 +1,13 @@
 import { createContext, useContext, useState, ReactNode } from "react";
 
-export type StepType = "start" | "phone" | "email" | "registration" | "otp";
+export type StepType = "start" | "email" | "registration" | "otp" | "regVerify";
 
 const stepOrder: StepType[] = [
   "start",
-  "phone",
   "email",
   "registration",
   "otp",
+  "regVerify",
 ];
 
 type StepContextType = {

@@ -1,4 +1,4 @@
-export default function AdminToursPage() {
+export default function AdminFinancePage() {
   return (
     <div>
       <h2 className="text-xl font-semibold">Статистика финансов</h2>

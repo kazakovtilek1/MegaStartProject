@@ -1,6 +1,6 @@
 "use client";
 
-import AdminToursFilter from "@/components/admin/adminTourFilters/AdminToursFilter";
+import AdminToursFilter from "@/components/admin/adminTourFilter/AdminTourFilter";
 import { useSearchParams, useRouter, useParams } from "next/navigation";
 import { useState } from "react";
 import { FilterType } from "@/constants/AdminTourTypes";
@@ -11,12 +11,23 @@ import { ru } from "date-fns/locale";
 import {
   adminDetailPageBtnClass,
   adminDetailPageEditBtnClass,
-} from "@/app/styles/admin/adminDetailPage/AdminDetailPageStyles";
+  adminModalClass,
+  adminModalYesBtnClass,
+  adminModalNoBtnClass,
+} from "@/app/styles/admin/adminTourDetailPage/AdminTourDetailPageStyles";
 import DatePickerComponent from "@/components/datePicker/DatePickerComponent";
 import TourInfo from "@/components/tourInfo/TourInfo";
 import LeaveReview from "@/components/leaveReview/LeaveReview";
 import Reviews from "@/components/reviews/Reviews";
 import { useGetTourByIdQuery } from "@/src/store/api/ToursApi";
+
+const FILTERS: FilterType[] = [
+  "all",
+  "active",
+  "archived",
+  "popular",
+  "lowDemand",
+];
 
 export default function AdminTourPage() {
   const { id } = useParams() as { id: string };
@@ -24,10 +35,14 @@ export default function AdminTourPage() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const [startDate, setStartDate] = useState<Date | null>(null);
+  const [activeModal, setActiveModal] = useState<"delete" | "archive" | null>(
+    null,
+  );
 
   const { data: tour, error, isLoading } = useGetTourByIdQuery(tourId);
   const queryFilter = searchParams.get("filter") as FilterType | null;
   const currentFilter = queryFilter || "all";
+  const closeModal = () => setActiveModal(null);
 
   const handleFilterChange = (newFilter: FilterType) => {
     if (newFilter === "all") {
@@ -63,22 +78,76 @@ export default function AdminTourPage() {
           <AdminToursFilter
             onFilterChange={handleFilterChange}
             currentFilter={currentFilter}
+            filtersToShow={FILTERS}
           />
           <div>
             <div className="flex gap-14 mb-2.5 justify-end">
-              <button className={adminDetailPageBtnClass}>
+              <button
+                onClick={() => setActiveModal("archive")}
+                className={adminDetailPageBtnClass}
+              >
                 Архивировать тур
               </button>
-              <button className={adminDetailPageBtnClass}>Удалить тур</button>
+              <button
+                onClick={() => setActiveModal("delete")}
+                className={adminDetailPageBtnClass}
+              >
+                Удалить тур
+              </button>
               <button className={adminDetailPageEditBtnClass}>
                 <Image
                   src="/images/EditTourIcon.svg"
                   alt="Редактировать"
                   width={24}
                   height={24}
-                  className=""
                 />
               </button>
+
+              {/* Модальные окна */}
+
+              {activeModal === "delete" && (
+                <div className={adminModalClass}>
+                  <h4 className="font-semibold text-base">
+                    Удалить тур навсегда?
+                  </h4>
+                  <p className="font-normal text-base mt-9 mb-2.5">Внимание!</p>
+                  <p className="font-normal text-base">
+                    Удаление тура является необратимым <br /> действием.
+                  </p>
+                  <div className="flex justify-between mt-11">
+                    <button className={adminModalYesBtnClass}>ДА</button>
+                    <button
+                      onClick={closeModal}
+                      className={adminModalNoBtnClass}
+                    >
+                      Нет
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {activeModal === "archive" && (
+                <div className={adminModalClass}>
+                  <h4 className="font-semibold text-base">
+                    Отправить тур в архив?
+                  </h4>
+                  <p className="font-normal text-base mt-9 mb-2.5">
+                    Ваш тур отправится в раздел <br /> “В архиве”.
+                  </p>
+                  <p className="font-normal text-base">
+                    Вы всегда сможете вернуть тур <br /> обратно.
+                  </p>
+                  <div className="flex justify-between mt-11">
+                    <button className={adminModalYesBtnClass}>ДА</button>
+                    <button
+                      onClick={closeModal}
+                      className={adminModalNoBtnClass}
+                    >
+                      Нет
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
             <Image
               src={tour.image}
@@ -104,15 +173,16 @@ export default function AdminTourPage() {
             </div>
             <div className="flex gap-40 mt-22">
               <div className="flex flex-col gap-1.5 font-medium text-xl">
-                <h4>Ближайшие даты выездов</h4>
+                <h4>Ближайшие даты выездов:</h4>
+
                 {tour.departureDates.map((rawDate, i) => {
-                  const parsedDate = parse(rawDate, "dd.MM.yyyy", new Date());
+                  const parsedDate = parse(rawDate, "yyyy-MM-dd", new Date());
 
                   if (isNaN(parsedDate.getTime())) {
                     return <p key={i}>Неверная дата</p>;
                   }
 
-                  const formatted = format(parsedDate, "d MMMM yyyy", {
+                  const formatted = format(parsedDate, "d MMMM", {
                     locale: ru,
                   });
 

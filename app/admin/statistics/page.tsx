@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
-import { StatisticsFilterType } from "@/constants/AdminStatisticsTypes";
-import AdminStatisticsFilter from "@/components/admin/adminTourFilters/AdminStaticticsFilter";
+import { useState, useMemo } from "react";
+import { FilterType } from "@/constants/AdminTourTypes";
+import AdminToursFilter from "@/components/admin/adminTourFilter/AdminTourFilter";
 import { Tour } from "@/constants/AdminTours";
+import { filterTours } from "@/utilities/filterTours";
 import Image from "next/image";
 import Link from "next/link";
 import { useGetToursQuery } from "@/src/store/api/ToursApi";
@@ -13,23 +14,21 @@ import {
   tourCardRatingClass,
   tourCardTitleClass,
   tourCardPriceDeparturePlacesClass,
-} from "@/app/styles/TourCardStyles";
+} from "@/app/styles/tourCards/TourCardStyles";
+
+const STATISTICS_FILTERS: FilterType[] = ["all", "mostpopular", "lowDemand"];
 
 export default function StatisticsPage() {
   const { data: tours, error, isLoading } = useGetToursQuery();
-  const [currentFilter, setCurrentFilter] =
-    useState<StatisticsFilterType>("all");
+  const [currentFilter, setCurrentFilter] = useState<FilterType>("all");
 
-  const handleFilterChange = (newFilter: StatisticsFilterType) => {
+  const handleFilterChange = (newFilter: FilterType) => {
     setCurrentFilter(newFilter);
   };
 
-  const filteredTours = (tours ?? []).filter((tour: Tour) => {
-    if (currentFilter === "all") return true;
-    if (currentFilter === "popular") return tour.visits >= 50;
-    if (currentFilter === "unpopular") return tour.visits < 50;
-    return true;
-  });
+  const filteredTours: Tour[] = useMemo(() => {
+    return filterTours(tours ?? [], currentFilter);
+  }, [tours, currentFilter]);
 
   if (isLoading) {
     return <div className="text-center m-10 text-xl">Загрузка туров...</div>;
@@ -50,9 +49,10 @@ export default function StatisticsPage() {
       </h3>
       <div className="flex mt-21 gap-35">
         <div>
-          <AdminStatisticsFilter
+          <AdminToursFilter
             onFilterChange={handleFilterChange}
             currentFilter={currentFilter}
+            filtersToShow={STATISTICS_FILTERS}
           />
         </div>
         <div className="flex flex-col gap-14">

@@ -1,12 +1,12 @@
 export const regions = [
-  "Бишкек",
-  "Ош",
-  "Чуйская область",
-  "Иссык-Кульская область",
-  "Нарынская область",
-  "Таласская область",
-  "Джалал-Абадская область",
-  "Баткенская область",
+  { label: "Бишкек", value: "BISHKEK" },
+  { label: "Ош", value: "OSH" },
+  { label: "Чуйская область", value: "CHUY" },
+  { label: "Иссык-Кульская область", value: "ISSYK_KUL" },
+  { label: "Нарынская область", value: "NARYN" },
+  { label: "Таласская область", value: "TALAS" },
+  { label: "Джалал-Абадская область", value: "JALAL_ABAD" },
+  { label: "Баткенская область", value: "BATKEN" },
 ];
 
 export const filterOptions = [

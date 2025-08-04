@@ -1,8 +1,10 @@
 "use client";
 
 import { useStep } from "../../StepContext";
-import { useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useForm } from "react-hook-form";
+import axios from "axios";
+import debounce from "lodash.debounce";
 import {
   IoIosArrowBack,
   IoIosClose,
@@ -27,14 +29,64 @@ export default function Registration() {
     register,
     handleSubmit,
     formState: { errors },
+    setError,
+    clearErrors,
+    watch,
   } = useForm<RegistrationFormData>();
 
   const { next, back, close } = useStep();
   const [showPassword, setShowPassword] = useState(false);
 
+  const usernameValue = watch("username");
+  const passwordValue = watch("password");
+
+  const isPasswordStrong =
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/.test(
+      passwordValue || "",
+    );
+
+  // Проверка логина с debounce
+  const debouncedCheckUsernameRef = useRef(
+    debounce(async (username: string) => {
+      if (!username || username.length < 4) return;
+
+      try {
+        const res = await axios.get(
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}/exists/${username}`,
+        );
+
+        if (res.data.available) {
+          setError("username", {
+            type: "manual",
+            message: "Данный логин уже используется",
+          });
+        } else {
+          clearErrors("username");
+        }
+      } catch {
+        setError("username", {
+          type: "manual",
+          message: "Ошибка при проверке логина",
+        });
+      }
+    }, 500),
+  );
+
+  useEffect(() => {
+    const debouncedFn = debouncedCheckUsernameRef.current;
+    debouncedFn(usernameValue);
+    return () => {
+      debouncedFn.cancel();
+    };
+  }, [usernameValue]);
+
   const onSubmit = (data: RegistrationFormData) => {
-    next();
-    // отправка на API
+    if (errors.username) {
+      alert("Данный логин занят");
+      return;
+    }
+    next("regVerify");
+    console.log("Submit", data);
   };
 
   return (
@@ -106,10 +158,11 @@ export default function Registration() {
           <div className="relative">
             <input
               {...register("password", {
-                required: "Введите пароль",
-                minLength: {
-                  value: 6,
-                  message: "Минимум 6 символов",
+                required: "Придумайте пароль",
+                pattern: {
+                  value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/,
+                  message:
+                    "Пароль должен содержать минимум 8 символов, включая заглавную и строчную букву, цифру и символ",
                 },
               })}
               type={showPassword ? "text" : "password"}
@@ -132,6 +185,15 @@ export default function Registration() {
           {errors.password && (
             <span className="text-red-500 text-sm ml-0.5">
               {errors.password.message}
+            </span>
+          )}
+          {passwordValue && (
+            <span
+              className={`text-sm ml-0.5 ${
+                isPasswordStrong ? "text-yellow-500" : "text-red-600"
+              }`}
+            >
+              {isPasswordStrong ? "Надёжный пароль" : "Пароль ненадёжный"}
             </span>
           )}
         </div>
