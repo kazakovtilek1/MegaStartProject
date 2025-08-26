@@ -1,5 +1,31 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+@import "tailwindcss";
+
+:root {
+  --font-inter: "Inter", sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-montserrat), sans-serif;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.react-datepicker__header {
+  background-color: transparent !important;
+}
+
+.react-datepicker__day--selected {
+  background-color: #2ca261 !important;
+}
+
+.react-datepicker__day-name {
+  color: #6e7781 !important;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: #E48C3F !important;
 }

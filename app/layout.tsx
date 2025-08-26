@@ -1,32 +1,56 @@
-import type { Metadata } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
-import './globals.css';
+import type { Metadata } from "next";
+import "./globals.css";
+import localFont from "next/font/local";
+import ErrorBoundary from "@/components/ErrorBoundary";
+import { Providers } from "../src/Providers";
+import AuthProvider from "@/components/AuthProvider";
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
-  subsets: ['latin'],
+const montserrat = localFont({
+  src: [
+    {
+      path: "./fonts/Montserrat-VariableFont_wght.ttf",
+      weight: "100 900",
+      style: "normal",
+    },
+    {
+      path: "./fonts/Montserrat-Italic-VariableFont_wght.ttf",
+      weight: "100 900",
+      style: "italic",
+    },
+  ],
+  variable: "--font-montserrat",
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
-  subsets: ['latin'],
+const inter = localFont({
+  src: [
+    {
+      path: "./fonts/Inter-VariableFont.ttf",
+      weight: "100 900",
+      style: "normal",
+    },
+  ],
+  variable: "--font-inter",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: 'Mega Start Project',
+  title: "Mega Start Project",
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+      <body className={`${montserrat.variable} ${inter.variable}`}>
+        <Providers>
+          <AuthProvider>
+            <ErrorBoundary>{children}</ErrorBoundary>
+          </AuthProvider>
+        </Providers>
       </body>
     </html>
   );
